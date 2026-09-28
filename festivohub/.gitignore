@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.vercel
+*.log
+7zr.exe
+kali-linux-*.7z
+kali-extracted/
+logintoken.json

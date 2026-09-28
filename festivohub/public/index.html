@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>FestivoHub — Discover Festivals & Events Across India</title>
+<meta name="description" content="Discover, book, and experience the best festivals and events across India. Garba nights, music concerts, food festivals, tech conferences and more.">
+<meta property="og:title" content="FestivoHub — Indian Festival & Event Booking Platform">
+<meta property="og:description" content="Discover, book, and experience the best festivals and events across India.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#06060f;--bg-2:#0c0c1d;--bg-3:#111128;--bg-4:#181838;
+--surface:#13132b;--surface-2:#1a1a3e;--surface-3:#222255;
+--border:rgba(255,255,255,.07);--border-2:rgba(255,255,255,.12);
+--text:#f4f4fb;--text-2:#a8a8c8;--text-3:#6e6e96;
+--purple:#7c3aed;--purple-l:#a78bfa;--purple-d:#5b21b6;
+--pink:#ec4899;--pink-l:#f472b6;
+--orange:#f97316;--orange-l:#fb923c;
+--green:#22c55e;--green-l:#4ade80;
+--red:#ef4444;--red-l:#f87171;
+--blue:#3b82f6;--cyan:#06b6d4;
+--amber:#f59e0b;
+--g1:linear-gradient(135deg,#7c3aed,#ec4899);
+--g2:linear-gradient(135deg,#ec4899,#f97316);
+--g3:linear-gradient(135deg,#06b6d4,#7c3aed);
+--g4:linear-gradient(135deg,#22c55e,#06b6d4);
+--g5:linear-gradient(135deg,#f59e0b,#ef4444);
+--radius:12px;--radius-lg:18px;--radius-xl:24px;--radius-sm:8px;
+--shadow:0 8px 32px rgba(0,0,0,.4);
+--shadow-lg:0 16px 64px rgba(0,0,0,.5);
+--nav-h:64px;
+--container:1240px;
+}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;min-height:100vh;-webkit-font-smoothing:antialiased}
+html,body{overflow-x:hidden}
+#app{width:100%;overflow-x:hidden}
+::selection{background:var(--purple);color:#fff}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--purple-d);border-radius:4px}
+img{display:block;max-width:100%}
+a{color:var(--purple-l);text-decoration:none;transition:color .2s}a:hover{color:#fff}
+button,input,select,textarea{font-family:inherit}
+.container{max-width:var(--container);margin:0 auto;padding:0 1.5rem}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+
+/* ===== BUTTONS ===== */
+.btn{display:inline-flex;align-items:center;gap:.45rem;padding:.6rem 1.25rem;border-radius:var(--radius-sm);font-weight:600;font-size:.875rem;border:none;cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);white-space:nowrap;position:relative;overflow:hidden}
+.btn::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background .25s}
+.btn:hover::after{background:rgba(255,255,255,.08)}
+.btn:active{transform:scale(.97)}
+.btn-p{background:var(--g1);color:#fff;box-shadow:0 4px 20px rgba(124,58,237,.35)}
+.btn-p:hover{box-shadow:0 6px 28px rgba(124,58,237,.5);transform:translateY(-1px)}
+.btn-g{background:transparent;border:1px solid var(--border-2);color:var(--text)}
+.btn-g:hover{border-color:var(--purple);background:rgba(124,58,237,.08)}
+.btn-sm{padding:.4rem .9rem;font-size:.8rem}
+.btn-lg{padding:.75rem 1.8rem;font-size:.95rem;border-radius:var(--radius)}
+.btn-ok{background:var(--g4);color:#fff}.btn-danger{background:linear-gradient(135deg,#ef4444,#dc2626);color:#fff}
+.btn-amber{background:var(--g5);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none!important;box-shadow:none!important}
+.btn-icon{width:38px;height:38px;padding:0;display:flex;align-items:center;justify-content:center;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);color:var(--text-2);cursor:pointer;transition:all .2s;font-size:1rem}
+.btn-icon:hover{color:#fff;border-color:var(--purple);background:var(--surface-2)}
+
+/* ===== FORMS ===== */
+.fg{margin-bottom:.9rem}
+.fg label{display:block;font-size:.8rem;font-weight:500;margin-bottom:.3rem;color:var(--text-2);letter-spacing:.02em}
+.fg input,.fg textarea,.fg select{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem .9rem;color:var(--text);font-size:.9rem;outline:none;transition:border-color .2s,box-shadow .2s}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--purple);box-shadow:0 0 0 3px rgba(124,58,237,.15)}
+.fg textarea{resize:vertical;min-height:80px}
+.fg select option{background:var(--bg-3)}
+.fg-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+@media(max-width:600px){.fg-row{grid-template-columns:1fr}}
+
+/* ===== BADGE ===== */
+.badge{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .6rem;border-radius:50px;font-size:.7rem;font-weight:600;letter-spacing:.02em}
+.b-purple{background:rgba(124,58,237,.15);color:var(--purple-l)}
+.b-pink{background:rgba(236,72,153,.15);color:var(--pink-l)}
+.b-green{background:rgba(34,197,94,.15);color:var(--green-l)}
+.b-orange{background:rgba(249,115,22,.15);color:var(--orange-l)}
+.b-red{background:rgba(239,68,68,.15);color:var(--red-l)}
+.b-blue{background:rgba(59,130,246,.15);color:var(--blue)}
+.b-amber{background:rgba(245,158,11,.15);color:var(--amber)}
+
+/* ===== CARDS ===== */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .3s cubic-bezier(.4,0,.2,1)}
+.card:hover{border-color:var(--border-2);transform:translateY(-4px);box-shadow:var(--shadow)}
+.card-glass{background:rgba(19,18,43,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--border)}
+
+/* ===== STAT CARD ===== */
+.sc{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem;display:flex;align-items:center;gap:1rem;transition:all .25s}
+.sc:hover{border-color:var(--border-2);transform:translateY(-2px)}
+.sc.clickable{cursor:pointer}.sc.clickable:hover{border-color:var(--purple);box-shadow:0 4px 20px rgba(124,58,237,.15)}
+.sc-icon{width:44px;height:44px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.15rem;color:#fff;flex-shrink:0}
+.sc-val{font-family:'Space Grotesk';font-weight:700;font-size:1.5rem;line-height:1.2}
+.sc-lbl{font-size:.78rem;color:var(--text-2);margin-top:.1rem}
+
+/* ===== TABLE ===== */
+.tbl-wrap{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);background:var(--surface)}
+.tbl{width:100%;border-collapse:separate;border-spacing:0;font-size:.85rem}
+.tbl th{background:var(--bg-3);padding:.65rem .75rem;text-align:left;font-weight:600;color:var(--text-2);border-bottom:1px solid var(--border);font-size:.78rem;text-transform:uppercase;letter-spacing:.04em}
+.tbl td{padding:.6rem .75rem;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:rgba(255,255,255,.02)}
+
+/* ===== MODAL ===== */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(8px);z-index:10000;display:flex;align-items:center;justify-content:center;padding:1rem;animation:fadeIn .2s}
+.modal{background:var(--bg-3);border:1px solid var(--border);border-radius:var(--radius-xl);max-width:480px;width:100%;max-height:85vh;overflow-y:auto;padding:2rem;animation:slideUp .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== TOAST ===== */
+#toastWrap{position:fixed;top:80px;right:20px;z-index:99999;display:flex;flex-direction:column;gap:.5rem;pointer-events:none}
+.toast{pointer-events:auto;background:var(--bg-3);border:1px solid var(--border);border-radius:var(--radius);padding:.7rem 1.1rem;display:flex;align-items:center;gap:.6rem;font-size:.87rem;box-shadow:var(--shadow-lg);animation:toastIn .4s cubic-bezier(.16,1,.3,1);min-width:260px;backdrop-filter:blur(20px)}
+.toast.ok{border-left:3px solid var(--green)}.toast.err{border-left:3px solid var(--red)}
+@keyframes toastIn{from{opacity:0;transform:translateX(50px) scale(.95)}to{opacity:1;transform:translateX(0) scale(1)}}
+.toast.out{animation:toastOut .3s forwards}
+@keyframes toastOut{to{opacity:0;transform:translateX(50px) scale(.95)}}
+
+/* ===== SPINNER ===== */
+.spinner-wrap{display:flex;justify-content:center;padding:3rem}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--purple);border-radius:50%;animation:spin .65s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ===== PAGINATION ===== */
+.pager{display:flex;justify-content:center;gap:.35rem;margin-top:1.5rem}
+.pager button{width:36px;height:36px;border-radius:var(--radius-sm);background:var(--surface);border:1px solid var(--border);color:var(--text-2);cursor:pointer;font-weight:600;font-size:.82rem;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.pager button:hover{border-color:var(--purple);color:#fff}
+.pager button.active{background:var(--g1);color:#fff;border-color:transparent}
+
+/* ===== EMPTY STATE ===== */
+.empty{text-align:center;padding:3.5rem 1.5rem}
+.empty i{font-size:3rem;display:block;margin-bottom:1rem;opacity:.4}
+.empty h5{font-family:'Space Grotesk';font-weight:700;margin-bottom:.4rem}
+.empty p{color:var(--text-2);font-size:.9rem;margin-bottom:1.2rem;max-width:360px;margin-left:auto;margin-right:auto}
+
+/* ===== SECTION ===== */
+.section{padding:4.5rem 0}
+.sec-tag{display:inline-flex;align-items:center;gap:.4rem;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:2px;color:var(--purple-l);margin-bottom:.6rem}
+.sec-hdr{text-align:center;margin-bottom:2.5rem}
+.sec-hdr h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:.5rem}
+.sec-hdr p{color:var(--text-2);max-width:460px;margin:0 auto;font-size:.95rem;line-height:1.7}
+
+/* ===== NAVBAR ===== */
+.topnav{position:fixed;top:0;left:0;right:0;z-index:1000;height:var(--nav-h);background:rgba(6,6,15,.82);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--border);transition:all .3s}
+.topnav.scrolled{background:rgba(6,6,15,.95);box-shadow:0 4px 24px rgba(0,0,0,.3)}
+.topnav .container{display:flex;align-items:center;justify-content:space-between;height:100%;gap:1rem}
+.brand{display:flex;align-items:center;gap:.5rem;cursor:pointer;font-family:'Space Grotesk';font-weight:700;font-size:1.15rem;color:#fff;flex-shrink:0}
+.brand-icon{width:32px;height:32px;background:var(--g1);border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:.9rem;color:#fff}
+.nav-center{display:flex;align-items:center;gap:.25rem}
+.nav-center .nl{padding:.4rem .85rem;border-radius:var(--radius-sm);font-size:.87rem;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .2s;white-space:nowrap}
+.nav-center .nl:hover,.nav-center .nl.active{color:#fff;background:rgba(255,255,255,.06)}
+.nav-right{display:flex;align-items:center;gap:.5rem}
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:.4rem;color:var(--text)}
+.hamburger i{font-size:1.4rem}
+.mobile-menu{display:none;position:fixed;top:var(--nav-h);left:0;right:0;bottom:0;background:var(--bg);z-index:999;padding:1.5rem;overflow-y:auto}
+.mobile-menu.open{display:flex;flex-direction:column;gap:.4rem}
+.mobile-menu .nl{padding:.85rem 1rem;border-radius:var(--radius-sm);font-size:1rem;font-weight:500;color:var(--text-2);cursor:pointer;transition:all .2s}
+.mobile-menu .nl:hover,.mobile-menu .nl.active{color:#fff;background:var(--surface)}
+@media(max-width:820px){.nav-center{display:none!important}.nav-right{display:none!important}.hamburger{display:flex}}
+.bottom-nav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:1000;background:rgba(6,6,15,.95);backdrop-filter:blur(24px);border-top:1px solid var(--border);padding:.4rem 0 env(safe-area-inset-bottom,.4rem)}
+.bottom-nav .container{display:flex;justify-content:space-around}
+.bn-item{display:flex;flex-direction:column;align-items:center;gap:.15rem;padding:.3rem .6rem;border-radius:var(--radius-sm);font-size:.65rem;color:var(--text-3);cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
+.bn-item i{font-size:1.15rem}.bn-item.active{color:var(--purple-l)}
+@media(max-width:820px){.bottom-nav{display:block}}
+body{padding-bottom:0}
+@media(max-width:820px){body{padding-bottom:70px}}
+
+/* ===== HERO ===== */
+.hero{min-height:92vh;display:flex;align-items:center;position:relative;overflow:hidden;padding-top:var(--nav-h)}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;filter:brightness(.35) saturate(1.2)}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(6,6,15,.4) 0%,rgba(6,6,15,.7) 50%,var(--bg) 100%)}
+.hero-content{position:relative;z-index:2;max-width:680px}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.25);padding:.4rem 1rem;border-radius:50px;font-size:.8rem;font-weight:500;color:var(--purple-l);margin-bottom:1.5rem;backdrop-filter:blur(10px)}
+.hero-badge .dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.hero h1{font-family:'Space Grotesk';font-weight:700;font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.08;margin-bottom:1.2rem;letter-spacing:-.02em}
+.hero h1 .hl{background:var(--g2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:1.05rem;color:var(--text-2);line-height:1.75;margin-bottom:2rem;max-width:520px}
+.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;margin-bottom:3rem}
+.hero-search{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:.4rem;display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;backdrop-filter:blur(16px)}
+.hero-search input{flex:1;min-width:120px;background:transparent;border:none;color:var(--text);padding:.55rem .9rem;font-size:.9rem;outline:none}
+.hero-search input::placeholder{color:var(--text-3)}
+.hero-search .hs-div{width:1px;height:24px;background:var(--border)}
+.hero-search select{background:transparent;border:none;color:var(--text-2);padding:.55rem .6rem;font-size:.82rem;outline:none;cursor:pointer}
+.hero-search select option{background:var(--bg-3)}
+.hs-btn{background:var(--g1);border:none;color:#fff;padding:.6rem 1.4rem;border-radius:var(--radius-sm);font-weight:600;font-size:.87rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:.4rem;white-space:nowrap}
+.hs-btn:hover{box-shadow:0 4px 20px rgba(124,58,237,.45);transform:translateY(-1px)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:2rem}
+.hs-item .hs-num{font-family:'Space Grotesk';font-weight:700;font-size:1.6rem;background:var(--g2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hs-item .hs-lbl{font-size:.78rem;color:var(--text-3)}
+@media(max-width:600px){.hero{min-height:100vh}.hero h1{font-size:2rem}.hero-search{flex-direction:column}.hero-search .hs-div{display:none}.hero-search select,.hero-search input{width:100%}.hero-stats{gap:1.5rem}.hero-stats .hs-num{font-size:1.2rem}}
+
+/* ===== EVENT CARD ===== */
+.ev-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(275px,1fr));gap:1.2rem}
+@media(max-width:600px){.ev-grid{grid-template-columns:1fr}}
+.ev-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:all .35s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.ev-card:hover{transform:translateY(-6px);border-color:rgba(124,58,237,.3);box-shadow:0 16px 48px rgba(0,0,0,.4)}
+.ev-card .ec-img{position:relative;height:185px;overflow:hidden;background:var(--surface-2)}
+.ev-card .ec-img img{width:100%;height:100%;object-fit:cover;opacity:1;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.ev-card:hover .ec-img img{transform:scale(1.06)}
+.ev-card .ec-img .ec-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,15,.85) 0%,transparent 55%)}
+.ev-card .ec-badge{position:absolute;top:10px;left:10px;z-index:2}
+.ev-card .ec-fav{position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.45);backdrop-filter:blur(8px);border:none;color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;font-size:.85rem}
+.ev-card .ec-fav:hover,.ev-card .ec-fav.liked{background:var(--pink);transform:scale(1.1)}
+.ev-card .ec-date{position:absolute;top:10px;right:50px;z-index:2;background:rgba(0,0,0,.5);backdrop-filter:blur(8px);border-radius:var(--radius-sm);padding:.25rem .5rem;text-align:center;line-height:1.15}
+.ev-card .ec-date .d{font-family:'Space Grotesk';font-size:1.1rem;font-weight:700;color:#fff}
+.ev-card .ec-date .m{font-size:.55rem;text-transform:uppercase;color:var(--pink-l);font-weight:600}
+.ev-card .ec-body{padding:1rem 1.1rem}
+.ev-card .ec-body h5{font-family:'Space Grotesk';font-weight:600;font-size:.98rem;line-height:1.3;margin-bottom:.4rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ec-meta{display:flex;flex-direction:column;gap:.25rem;margin-bottom:.7rem}
+.ec-meta span{font-size:.78rem;color:var(--text-3);display:flex;align-items:center;gap:.3rem;line-height:1.3}
+.ec-meta i{color:var(--purple-l);font-size:.82rem;flex-shrink:0}
+.ec-foot{display:flex;justify-content:space-between;align-items:center;padding-top:.7rem;border-top:1px solid var(--border)}
+.ec-price{font-family:'Space Grotesk';font-weight:700;font-size:1rem;background:var(--g2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ec-seats{font-size:.72rem;color:var(--text-3);background:var(--bg-3);padding:.2rem .55rem;border-radius:6px}
+.ec-book-btn{width:100%;margin-top:.7rem;padding:.55rem;border-radius:var(--radius-sm);border:none;background:var(--bg-3);color:var(--text);font-weight:600;font-size:.85rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:.35rem}
+.ec-book-btn:hover{background:var(--g1);color:#fff}
+
+/* ===== EXPLORE EVENTS LAYOUT ===== */
+.ev-section{min-height:calc(100vh - var(--nav-h))}
+.ev-container{width:100%;max-width:var(--container);margin:0 auto;padding:0 1.5rem}
+.ev-count-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.1rem}
+.ev-grid{width:100%}
+#evGrid img{max-width:100%}
+@media(max-width:600px){
+.ev-container{padding:0 16px}
+.ev-grid{grid-template-columns:1fr;gap:1.1rem}
+.ev-grid .ev-card{width:100%;max-width:100%}
+.ev-card .ec-img{height:auto}
+.ev-card .ec-img img{height:auto;object-fit:cover}
+}
+
+/* ===== CATEGORY GRID ===== */
+.cat-hdr{text-align:left!important;display:flex;align-items:flex-end;justify-content:space-between;gap:1rem}
+.cat-hdr .btn{white-space:nowrap;margin-bottom:.15rem}
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:.85rem}
+@media(max-width:600px){.cat-hdr{align-items:flex-start;flex-direction:column}.cat-hdr .btn{width:100%;justify-content:center;margin:0}.cat-grid{grid-template-columns:repeat(auto-fill,minmax(92px,1fr));gap:.6rem}}
+.cat-card{position:relative;width:100%;min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem .7rem;text-align:center;color:inherit;font:inherit;cursor:pointer;transition:all .3s}
+.cat-card:hover{border-color:var(--purple);transform:translateY(-3px);box-shadow:0 8px 24px rgba(124,58,237,.15)}
+.cat-card .cat-icon{font-size:1.8rem;margin-bottom:.5rem;display:block;transition:transform .3s}
+.cat-card:hover .cat-icon{transform:scale(1.15)}
+.cat-card .cat-name{display:block;width:100%;font-size:.85rem;line-height:1.35;font-weight:600;color:var(--text);word-break:break-word}
+.cat-card:hover .cat-name{color:#fff}
+.cat-card .cat-arrow{position:absolute;top:9px;right:9px;font-size:.75rem;color:var(--text-3);opacity:0;transform:translate(-3px,3px);transition:all .25s}
+.cat-card:hover .cat-arrow,.cat-card:focus-visible .cat-arrow{opacity:1;transform:translate(0,0);color:var(--purple-l)}
+
+/* ===== FEATURES GRID ===== */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1.1rem}
+.feat-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:1.8rem 1.4rem;transition:all .3s;position:relative;overflow:hidden}
+.feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--g1);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+.feat-card:hover::before{transform:scaleX(1)}
+.feat-card:hover{border-color:var(--border-2);transform:translateY(-3px)}
+.feat-icon{width:48px;height:48px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem;transition:transform .3s}
+.feat-card:hover .feat-icon{transform:scale(1.1)}
+.feat-card h5{font-family:'Space Grotesk';font-weight:600;margin-bottom:.3rem;font-size:1rem}
+.feat-card p{color:var(--text-2);font-size:.85rem;line-height:1.65;margin:0}
+
+/* ===== CTA BOX ===== */
+.cta-box{background:var(--g1);border-radius:var(--radius-xl);padding:3.5rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.cta-box::before{content:'';position:absolute;top:-50%;right:-20%;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.1),transparent 65%);pointer-events:none}
+.cta-box h2{font-family:'Space Grotesk';font-weight:700;font-size:clamp(1.4rem,2.5vw,2rem);margin-bottom:.6rem;position:relative}
+.cta-box p{color:rgba(255,255,255,.8);max-width:420px;margin:0 auto 1.5rem;position:relative;font-size:.95rem}
+.cta-box .btn{position:relative;background:#fff;color:var(--purple-d);font-weight:700;padding:.75rem 2rem;border-radius:var(--radius);box-shadow:0 4px 20px rgba(0,0,0,.2)}
+.cta-box .btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+
+/* ===== REVIEWS ===== */
+.rev-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.3rem;margin-bottom:.8rem}
+.rev-head{display:flex;align-items:center;gap:.6rem;margin-bottom:.6rem}
+.rev-av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.82rem;flex-shrink:0;color:#fff}
+.rev-stars{color:var(--amber);font-size:.8rem}
+.rev-text{color:var(--text-2);font-size:.88rem;line-height:1.65;margin:0}
+
+/* ===== HERO DETAIL ===== */
+.detail-hero{position:relative;height:380px;border-radius:var(--radius-xl);overflow:hidden;margin-bottom:2rem}
+.detail-hero img{width:100%;height:100%;object-fit:cover}
+.detail-hero .dh-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,6,15,.92) 0%,rgba(6,6,15,.2) 100%)}
+.detail-hero .dh-content{position:absolute;bottom:0;left:0;right:0;padding:2rem 2.5rem}
+@media(max-width:600px){.detail-hero{height:260px}.detail-hero .dh-content{padding:1.5rem}}
+
+/* ===== DETAIL GRID ===== */
+.detail-grid{display:grid;grid-template-columns:1.6fr 1fr;gap:1.5rem}
+@media(max-width:820px){.detail-grid{grid-template-columns:1fr}}
+
+/* ===== TICKET SELECTOR ===== */
+.tt-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;margin-bottom:.6rem;cursor:pointer;transition:all .25s}
+.tt-card:hover,.tt-card.sel{border-color:var(--purple);background:rgba(124,58,237,.06)}
+.tt-card.sel{box-shadow:0 0 0 2px var(--purple)}
+.tt-name{font-weight:600;font-size:.95rem}
+.tt-price{font-family:'Space Grotesk';font-weight:700;font-size:1.15rem;background:var(--g2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.tt-avail{font-size:.75rem;color:var(--text-3)}
+.qty-row{display:flex;align-items:center;gap:1rem;justify-content:center;margin:1rem 0}
+.qty-row button{width:38px;height:38px;border-radius:var(--radius-sm);border:1px solid var(--border);background:var(--surface);color:#fff;font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.qty-row button:hover{background:var(--purple);border-color:var(--purple)}
+.qty-row .qty{font-family:'Space Grotesk';font-size:1.6rem;font-weight:700;min-width:38px;text-align:center}
+.order-box{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.1rem;margin-top:.8rem}
+.ob-row{display:flex;justify-content:space-between;padding:.35rem 0;font-size:.87rem}
+.ob-total{border-top:1px solid var(--border);margin-top:.5rem;padding-top:.6rem;font-weight:700;font-size:1.05rem}
+
+/* ===== CHECKOUT ===== */
+.checkout-steps{display:flex;gap:.3rem;margin-bottom:2rem}
+.cs-step{flex:1;text-align:center;padding:.6rem;border-radius:var(--radius-sm);background:var(--surface);font-size:.78rem;font-weight:600;color:var(--text-3);transition:all .2s}
+.cs-step.active{background:var(--g1);color:#fff}
+.cs-step.done{background:rgba(34,197,94,.15);color:var(--green)}
+
+/* ===== TICKET DISPLAY (QR) ===== */
+.ticket-disp{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);overflow:hidden;max-width:380px;margin:0 auto}
+.ticket-disp .td-hdr{background:var(--g1);padding:1.5rem;text-align:center;color:#fff;position:relative}
+.ticket-disp .td-hdr::before,.ticket-disp .td-hdr::after{content:'';position:absolute;bottom:-12px;width:24px;height:24px;background:var(--bg);border-radius:50%}
+.ticket-disp .td-hdr::before{left:-12px}.ticket-disp .td-hdr::after{right:-12px}
+.ticket-disp .td-body{padding:1.5rem;text-align:center}
+.ticket-disp .td-qr{margin:.8rem auto;width:180px;height:180px;background:#fff;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center}
+.ticket-disp .td-qr img{width:100%;height:100%;object-fit:contain;border-radius:var(--radius-sm)}
+.ticket-disp .td-tear{border-top:2px dashed var(--border);margin:0 1.5rem}
+.ticket-disp .td-info{text-align:left;padding:0 1.5rem 1.5rem}
+.ticket-disp .td-row{display:flex;justify-content:space-between;padding:.35rem 0;border-bottom:1px solid var(--border);font-size:.85rem}
+.ticket-disp .td-row:last-child{border:none}
+
+/* ===== DASHBOARD ===== */
+.dash{min-height:100vh;display:flex;padding-top:var(--nav-h)}
+.dash-side{width:240px;background:var(--surface);border-right:1px solid var(--border);position:fixed;top:var(--nav-h);left:0;bottom:0;overflow-y:auto;padding:1.2rem;display:flex;flex-direction:column;z-index:100}
+.dash-side .sb-link{display:flex;align-items:center;gap:.65rem;padding:.6rem .85rem;border-radius:var(--radius-sm);color:var(--text-2);font-weight:500;font-size:.87rem;cursor:pointer;transition:all .2s}
+.dash-side .sb-link:hover{background:rgba(255,255,255,.04);color:#fff}
+.dash-side .sb-link.active{background:var(--g1);color:#fff}
+.dash-side .sb-link i{font-size:1rem;width:18px;text-align:center}
+.dash-side .sb-div{height:1px;background:var(--border);margin:.5rem 0}
+.dash-main{flex:1;margin-left:240px;padding:1.8rem;max-width:1200px}
+.dash-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:.8rem}
+.dash-hdr h1{font-family:'Space Grotesk';font-weight:700;font-size:1.4rem}
+.dash-body{min-height:55vh}
+@media(max-width:820px){.dash-side{display:none!important}.dash-main{margin-left:0;padding:1rem}}
+@media(max-width:820px){.topnav .brand span{display:none}}
+
+/* ===== SCROLL REVEAL ===== */
+.reveal{opacity:0;transform:translateY(24px);transition:all .6s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ===== STAR RATING ===== */
+.stars{color:var(--amber);font-size:.85rem}
+.stars i{margin-right:1px}
+
+/* ===== NEWSLETTER ===== */
+.nl-section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-xl);padding:2.5rem;display:flex;align-items:center;gap:2rem;flex-wrap:wrap}
+.nl-section .nl-text{flex:1;min-width:240px}
+.nl-section .nl-form{display:flex;gap:.5rem;flex:1;min-width:280px}
+.nl-section .nl-form input{flex:1;background:var(--bg-3);border:1px solid var(--border);border-radius:var(--radius-sm);padding:.65rem 1rem;color:var(--text);font-size:.9rem;outline:none}
+.nl-section .nl-form input:focus{border-color:var(--purple)}
+@media(max-width:600px){.nl-section{flex-direction:column;text-align:center}.nl-form{width:100%}}
+
+/* ===== FOOTER ===== */
+.site-footer{background:var(--surface);border-top:1px solid var(--border);padding:3rem 0 1.5rem;margin-top:2rem}
+.ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+@media(max-width:820px){.ft-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.ft-grid{grid-template-columns:1fr}}
+.ft-brand p{color:var(--text-3);font-size:.85rem;line-height:1.65;max-width:260px;margin-top:.6rem}
+.ft-col h6{font-family:'Space Grotesk';font-weight:600;margin-bottom:.7rem;color:var(--text);font-size:.85rem}
+.ft-col a{display:block;color:var(--text-3);font-size:.83rem;padding:.2rem 0;transition:color .2s}
+.ft-col a:hover{color:var(--purple-l)}
+.ft-bottom{padding-top:1rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem}
+.ft-bottom p{color:var(--text-3);font-size:.78rem;margin:0}
+.ft-socials{display:flex;gap:.4rem}
+.ft-socials a{width:32px;height:32px;border-radius:var(--radius-sm);background:var(--bg-3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-3);transition:all .2s;font-size:.85rem}
+.ft-socials a:hover{background:var(--g1);color:#fff;border-color:transparent;transform:translateY(-2px)}
+
+/* ===== UTILITY ===== */
+.mb-1{margin-bottom:.8rem}.mb-2{margin-bottom:1.5rem}.mb-3{margin-bottom:2.5rem}
+.mt-1{margin-top:.8rem}.mt-2{margin-top:1.5rem}
+.tc{text-align:center}.t2{color:var(--text-2)}.t3{color:var(--text-3)}
+.hidden{display:none!important}
+.gap-sm{gap:.6rem}.flex{display:flex}.flex-wrap{flex-wrap:wrap}.items-c{align-items:center}.justify-sb{justify-content:space-between}
+</style>
+</head>
+<body>
+<div id="toastWrap"></div>
+<div id="app"></div>
+<script>
+(function(){
+'use strict';
+// ============ STATE ============
+const S = { user:null, token:null, route:'', events:[], categories:[], stats:{events_hosted:0,cities_covered:0,happy_users:0,avg_rating:0}, statsReady:false, statsPromise:null, categoriesPromise:null, getCache:Object.create(null), getPromises:Object.create(null), bookings:null, bookingsPromise:null, tickets:null, ticketsPromise:null, qrCache:Object.create(null), imagePrefetches:new Map(), _evData:null };
+
+// ============ API ============
+async function api(path, opts={}){
+  const {method='GET',body,json=true}=opts;
+  const headers={};
+  if(json) headers['Content-Type']='application/json';
+  if(S.token) headers['Authorization']='Bearer '+S.token;
+  const r=await fetch('/api'+path,{method,headers,body:json&&body?JSON.stringify(body):undefined,credentials:'include'});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(d.error||'Request failed');
+  return d;
+}
+function cachedGet(path,ttl=30000){
+  const hit=S.getCache[path];
+  if(hit&&Date.now()-hit.at<ttl)return Promise.resolve(hit.data);
+  if(S.getPromises[path])return S.getPromises[path];
+  const request=api(path).then(d=>{S.getCache[path]={at:Date.now(),data:d};delete S.getPromises[path];return d}).catch(e=>{delete S.getPromises[path];throw e});
+  S.getPromises[path]=request;
+  return request;
+}
+function getStats(){
+  if(S.statsReady)return Promise.resolve(S.stats);
+  if(!S.statsPromise)S.statsPromise=cachedGet('/stats').then(d=>{S.stats=d;S.statsReady=true;return d}).catch(e=>{S.statsPromise=null;throw e});
+  return S.statsPromise;
+}
+function getCategories(){
+  if(S.categories.length)return Promise.resolve(S.categories);
+  if(!S.categoriesPromise)S.categoriesPromise=cachedGet('/categories',300000).then(d=>{S.categories=d;return d}).catch(e=>{S.categoriesPromise=null;throw e});
+  return S.categoriesPromise;
+}
+
+// ============ TOAST ============
+function toast(msg,type='ok'){
+  const w=document.getElementById('toastWrap'),t=document.createElement('div');
+  t.className='toast '+type;
+  t.innerHTML='<i class="bi bi-'+(type==='ok'?'check-circle-fill':'exclamation-circle-fill')+'" style="color:var(--'+(type==='ok'?'green':'red')+')"></i><span>'+esc(msg)+'</span>';
+  w.appendChild(t);
+  setTimeout(()=>{t.classList.add('out');setTimeout(()=>t.remove(),350)},3200);
+}
+
+// ============ UTILS ============
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function $(s){return document.querySelector(s)}
+function $$(s){return document.querySelectorAll(s)}
+function fmt(n){return '\u20B9'+Number(n||0).toLocaleString('en-IN')}
+function metric(n){const v=Number(n);return Number.isFinite(v)?v:0}
+function bookingQuantity(b){if(!b)return 0;for(const k of ['quantity','qty','seats_booked','ticketCount','ticket_count','tickets']){const v=b[k];if(v===undefined||v===null||v==='')continue;const n=Array.isArray(v)?v.length:(v&&typeof v==='object'?Number(v.quantity??v.count??v.total):Number(v));if(Number.isFinite(n)&&n>0)return Math.max(1,Math.floor(n))}return 1}
+function confirmedBooking(b){const v=b&&b.booking_status!==undefined&&b.booking_status!==null&&b.booking_status!==''?b.booking_status:(b&&b.status);return String(v||'').trim().toLowerCase()==='confirmed'||String(v||'').trim().toLowerCase()==='checked in'}
+function bookingRevenue(b){const v=b&&b.total_amount!==undefined&&b.total_amount!==null&&b.total_amount!==''?b.total_amount:(b&&b.amount!==undefined&&b.amount!==null&&b.amount!==''?b.amount:(b&&b.totalAmount!==undefined&&b.totalAmount!==null&&b.totalAmount!==''?b.totalAmount:b&&b.grand_total));const n=Number(v);return Number.isFinite(n)&&n>=0?n:0}
+function fmtD(d){if(!d)return'';return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
+function fmtTime(t){return t||''}
+function stars(n,sm){const c=sm?'':'font-size:.95rem';return'<span class="stars" style="'+c+'">'+[1,2,3,4,5].map(i=>'<i class="bi bi-star'+(i<=Math.round(n)?'-fill':'')+'"></i>').join('')+'</span>'}
+function badgeClass(s){const m={Confirmed:'green',Paid:'green',Active:'green',Approved:'green',Published:'green','Checked In':'blue',Pending:'amber',Draft:'blue',New:'blue',Refunded:'red',Cancelled:'red',Rejected:'red',Resolved:'green','In Review':'amber',Processed:'green',Blocked:'red',Inactive:'red',Suspended:'red',Upcoming:'purple','Sold Out':'red'};return m[s]||'purple'}
+function initials(n){return(n||'?').split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
+function sp(){return'<div class="spinner-wrap"><div class="spinner"></div></div>'}
+function empty(ic,title,txt,btn){return'<div class="empty"><i class="bi bi-'+ic+'"></i><h5>'+title+'</h5><p>'+txt+'</p>'+(btn||'')+'</div>'}
+const IMAGE_WIDTHS=[200,320,640,960,1400,1600];
+function img(u,w){
+  if(!u)return'';
+  u=String(u).trim();
+  if(/^(data:|blob:|\/\/|\/)/.test(u))return u;
+  if(/^https?:\/\//i.test(u))return'/img?u='+encodeURIComponent(u)+(w?'&w='+w:'');
+  return u;
+}
+function srcSetWidths(u,widths){
+  if(!u||!/^https?:\/\//i.test(String(u).trim()))return'';
+  const ws=[...new Set(widths.map(Number).filter(w=>Number.isFinite(w)&&w>0))].sort((a,b)=>a-b);
+  return ws.map(w=>img(u,w)+' '+w+'w').join(', ');
+}
+function srcSet(u,w){
+  const target=Number(w)||640;
+  const lo=target*.5,hi=target*1.5;
+  return srcSetWidths(u,IMAGE_WIDTHS.filter(x=>x>=lo&&x<=hi));
+}
+function imageFallback(el,u,w){
+  el.onerror=null;
+  el.removeAttribute('srcset');
+  el.src=img(u,w);
+}
+function preloadImage(u,widths,sizes){
+  if(!u||!/^https?:\/\//i.test(String(u).trim()))return;
+  const ws=[...new Set(widths.map(Number).filter(w=>Number.isFinite(w)&&w>0))].sort((a,b)=>a-b);
+  if(!ws.length)return;
+  const marker=img(u,ws[0]);
+  if(Array.from(document.head.querySelectorAll('link[data-image-preload]')).some(l=>l.getAttribute('data-image-preload')===marker))return;
+  const l=document.createElement('link');
+  l.rel='preload';
+  l.as='image';
+  l.href=marker;
+  l.setAttribute('data-image-preload',marker);
+  l.setAttribute('imagesrcset',srcSetWidths(u,ws));
+  l.setAttribute('imagesizes',sizes||'100vw');
+  l.setAttribute('fetchpriority','high');
+  document.head.appendChild(l);
+}
+function prefetchImage(u,w,sizes){
+  if(!u)return;
+  const source=String(u).trim();
+  if(!source||S.imagePrefetches.has(source))return;
+  const url=img(source,w);
+  if(!url||/^(data:|blob:)/i.test(url))return;
+  const image=new Image();
+  image.decoding='async';
+  image.loading='eager';
+  image.setAttribute('fetchpriority','low');
+  image.sizes=sizes||'336px';
+  const set=srcSet(source,w);
+  if(set)image.srcset=set;
+  image.src=url;
+  S.imagePrefetches.set(source,image);
+  if(image.decode)image.decode().catch(()=>{});
+}
+function prefetchEventImages(events,count=4,w=640,sizes='(max-width:600px) 100vw, 336px'){
+  (events||[]).slice(0,count).forEach(ev=>prefetchImage(ev.image||(ev.images&&ev.images[0]),w,sizes));
+}
+
+// ============ AUTH ============
+function resetUserCaches(){S.bookings=null;S.bookingsPromise=null;S.tickets=null;S.ticketsPromise=null;S.qrCache=Object.create(null)}
+function setAuth(d){resetUserCaches();S.token=d.token;S.user={id:d.id,role:d.role,name:d.name,email:d.email};try{localStorage.setItem('fhb_u',JSON.stringify(S.user));localStorage.setItem('fhb_t',d.token)}catch(e){}}
+function clearAuth(){resetUserCaches();S.token=null;S.user=null;try{localStorage.removeItem('fhb_u');localStorage.removeItem('fhb_t')}catch(e){}}
+function loadAuth(){try{const u=localStorage.getItem('fhb_u'),t=localStorage.getItem('fhb_t');if(u&&t){S.user=JSON.parse(u);S.token=t}}catch(e){}}
+async function logout(){await api('/auth/logout',{method:'POST'}).catch(()=>{});clearAuth();toast('Logged out');navigate('/')}
+async function doLogin(email,password,role){const d=await api('/auth/login',{method:'POST',body:{email,password,role}});setAuth(d);return d}
+
+// ============ ROUTER ============
+function navigate(h){if(location.hash!==h)location.hash=h;else handleRoute()}
+function handleRoute(){
+  const h=location.hash.slice(1)||'/';
+  S.route=h;
+  renderShell();
+  renderPage(h);
+  window.scrollTo(0,0);
+  updateNav();
+  animateReveal();
+}
+function updateNav(){
+  $$('.nav-center .nl').forEach(a=>{const r=a.getAttribute('data-r');a.classList.toggle('active',S.route===r||(r!=='/'&&S.route.startsWith(r+'/')))});
+  $$('.bottom-nav .bn-item').forEach(a=>{const r=a.getAttribute('data-r');a.classList.toggle('active',S.route===r||(r!=='/'&&S.route.startsWith(r+'/')))});
+}
+function animateReveal(){
+  const els=$$('.reveal');
+  if(!els.length)return;
+  const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});
+  els.forEach(el=>obs.observe(el));
+}
+
+// ============ SHELL ============
+function renderShell(){
+  const app=$('#app');
+  const isDash=S.route.startsWith('/dashboard');
+  app.innerHTML=(isDash?'':renderTopnav())+'<div id="page"></div>'+(isDash?'':renderFooter())+(isDash?'':renderBottomNav());
+  // Scroll listener for nav
+  const nav=$('.topnav');
+  if(nav){window.onscroll=()=>{nav.classList.toggle('scrolled',window.scrollY>30)}}
+}
+
+function renderTopnav(){
+  const logged=!!S.user;
+  const r=S.user?S.user.role:'';
+  const dLink=r==='admin'?'/dashboard':r==='organizer'?'/dashboard':'/dashboard';
+  return '<nav class="topnav"><div class="container"><div class="brand" onclick="navigate(\'/\')"><div class="brand-icon"><i class="bi bi-calendar2-event"></i></div><span>FestivoHub</span></div><div class="nav-center"><div class="nl" data-r="/" onclick="navigate(\'/\')">Home</div><div class="nl" data-r="/events" onclick="navigate(\'/events\')">Explore Events</div><div class="nl" data-r="/about" onclick="navigate(\'/about\')">About</div><div class="nl" data-r="/contact" onclick="navigate(\'/contact\')">Contact</div></div><div class="nav-right">'+(logged?'<div class="nl" data-r="/dashboard" onclick="navigate(\''+dLink+'\')" style="cursor:pointer;padding:.4rem .85rem;border-radius:var(--radius-sm);font-size:.87rem;font-weight:500;color:var(--text-2)"><i class="bi bi-speedometer2"></i> Dashboard</div><button class="btn btn-g btn-sm" onclick="logout()"><i class="bi bi-box-arrow-right"></i> Logout</button>':'<button class="btn btn-g btn-sm" onclick="navigate(\'/login\')">Log In</button><button class="btn btn-p btn-sm" onclick="navigate(\'/register\')">Sign Up</button>')+'</div><div class="hamburger" onclick="toggleMobile()"><i class="bi bi-list"></i></div></div></nav><div class="mobile-menu" id="mobMenu"><div class="nl" onclick="navigate(\'/\');toggleMobile()">Home</div><div class="nl" onclick="navigate(\'/events\');toggleMobile()">Explore Events</div><div class="nl" onclick="navigate(\'/about\');toggleMobile()">About</div><div class="nl" onclick="navigate(\'/contact\');toggleMobile()">Contact</div><div style="height:1px;background:var(--border);margin:.5rem 0"></div>'+(logged?'<div class="nl" onclick="navigate(\'/dashboard\');toggleMobile()">Dashboard</div><div class="nl" onclick="logout();toggleMobile()" style="color:var(--red-l)">Logout</div>':'<div class="nl" onclick="navigate(\'/login\');toggleMobile()">Log In</div><div class="nl" onclick="navigate(\'/register\');toggleMobile()">Sign Up</div>')+'</div>';
+}
+function toggleMobile(){const m=$('#mobMenu');if(m)m.classList.toggle('open')}
+
+function renderBottomNav(){
+  const logged=!!S.user;
+  return '<nav class="bottom-nav"><div class="container"><div class="bn-item" data-r="/" onclick="navigate(\'/\')"><i class="bi bi-house-fill"></i>Home</div><div class="bn-item" data-r="/events" onclick="navigate(\'/events\')"><i class="bi bi-compass"></i>Explore</div>'+(logged?'<div class="bn-item" data-r="/dashboard/tickets" onclick="navigate(\'/dashboard/tickets\')"><i class="bi bi-ticket-perforated"></i>Tickets</div><div class="bn-item" data-r="/dashboard" onclick="navigate(\'/dashboard\')"><i class="bi bi-person-fill"></i>Profile</div>':'<div class="bn-item" data-r="/login" onclick="navigate(\'/login\')"><i class="bi bi-person"></i>Login</div>')+'</div></nav>';
+}
+
+function renderFooter(){
+  return '<footer class="site-footer"><div class="container"><div class="ft-grid"><div class="ft-brand"><div class="brand" onclick="navigate(\'/\')" style="margin-bottom:.5rem"><div class="brand-icon"><i class="bi bi-calendar2-event"></i></div>FestivoHub</div><p>Discover, book, and experience the best festivals and events across India.</p></div><div class="ft-col"><h6>Explore</h6><a href="#/events">All Events</a><a href="#/events?category=Music">Music</a><a href="#/events?category=Cultural">Cultural</a><a href="#/events?category=Food">Food</a><a href="#/events?category=Sports">Sports</a></div><div class="ft-col"><h6>Company</h6><a href="#/about">About</a><a href="#/contact">Contact</a><a href="#/register">Become Organizer</a></div><div class="ft-col"><h6>Support</h6><a href="#/contact">Help Center</a><a href="#/contact">Booking Help</a><a href="#/contact">Refund Policy</a></div><div class="ft-col"><h6>Legal</h6><a href="#">Terms of Service</a><a href="#">Privacy Policy</a><a href="#">Cancellation Policy</a></div></div><div class="ft-bottom"><p>&copy; 2026 FestivoHub. Made with <i class="bi bi-heart-fill" style="color:var(--pink)"></i> in India</p><div class="ft-socials"><a href="#"><i class="bi bi-instagram"></i></a><a href="#"><i class="bi bi-facebook"></i></a><a href="#"><i class="bi bi-twitter-x"></i></a><a href="#"><i class="bi bi-youtube"></i></a></div></div></div></footer>';
+}
+// ============ EVENT CARD (reusable) ============
+const EVENT_IMAGE_FALLBACK='https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&h=400&fit=crop';
+function evCard(ev,priority){
+  const d=new Date(ev.event_date||'');
+  const month=d.toLocaleDateString('en-IN',{month:'short'}).toUpperCase();
+  const day=d.getDate();
+  const rem=ev.remaining!==undefined?ev.remaining:(ev.available_seats||0);
+  const src=ev.image||(ev.images&&ev.images[0])||EVENT_IMAGE_FALLBACK;
+  const loading=priority?'eager':'lazy';
+  const priorityAttr=priority?'high':'low';
+  return '<div class="ev-card" onclick="navigate(\'/events/'+ev._id+'\')"><div class="ec-img"><img src="'+img(src,640)+'" srcset="'+srcSet(src,640)+'" sizes="(max-width:600px) 100vw, 336px" width="640" height="427" alt="'+esc(ev.title||'')+'" loading="'+loading+'" decoding="async" fetchpriority="'+priorityAttr+'" onerror="imageFallback(this,\''+img(EVENT_IMAGE_FALLBACK,640)+'\')"><div class="ec-overlay"></div><div class="ec-badge"><span class="badge b-purple">'+esc(ev.category_name||'Event')+'</span></div><div class="ec-fav" onclick="event.stopPropagation();toggleFav(\''+ev._id+'\')"><i class="bi bi-heart"></i></div><div class="ec-date"><div class="d">'+day+'</div><div class="m">'+month+'</div></div></div><div class="ec-body"><h5>'+esc(ev.title||'')+'</h5><div class="ec-meta"><span><i class="bi bi-geo-alt-fill"></i> '+esc(ev.venue||'')+(ev.city?', '+esc(ev.city):'')+'</span><span><i class="bi bi-clock-fill"></i> '+fmtD(ev.event_date)+(ev.event_time?' &bull; '+ev.event_time:'')+'</span></div><div class="ec-foot"><div class="ec-price">'+(ev.price>0?fmt(ev.price)+' <span style="font-size:.72rem;color:var(--text-3);-webkit-text-fill-color:var(--text-3)">onwards</span>':'Free')+'</div>'+(rem>0?'<div class="ec-seats"><i class="bi bi-ticket"></i> '+rem+' left</div>':'<div class="ec-seats" style="color:var(--red-l)">Sold Out</div>')+'</div>'+(rem>0?'<button class="ec-book-btn" onclick="event.stopPropagation();startBooking(\''+ev._id+'\')"><i class="bi bi-ticket-perforated"></i> Book Now</button>':'')+'</div></div>';
+}
+
+// ============ HOME PAGE ============
+async function renderHome(){
+  const pc=$('#page');
+  const hero='https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3';
+  preloadImage(hero,[640,960,1400,1600],'100vw');
+  pc.innerHTML='<!-- HERO --><section class="hero"><div class="hero-bg"><img src="'+img(hero,960)+'" srcset="'+srcSetWidths(hero,[640,960,1400,1600])+'" sizes="100vw" width="1600" height="900" alt="Festival" loading="eager" fetchpriority="high" decoding="async" onerror="imageFallback(this,\''+img(EVENT_IMAGE_FALLBACK,1600)+'\')"></div><div class="container"><div class="hero-content"><div class="hero-badge"><span class="dot"></span> India\'s Premier Event Platform</div><h1>Find Your Next<br><span class="hl">Unforgettable Experience</span></h1><p>Discover concerts, festivals, workshops, cultural events and experiences happening around you.</p><div class="hero-btns"><button class="btn btn-p btn-lg" onclick="navigate(\'/events\')"><i class="bi bi-compass"></i> Explore Events</button><button class="btn btn-g btn-lg" onclick="navigate(\'/register\')"><i class="bi bi-rocket-takeoff"></i> Host an Event</button></div><div class="hero-search"><i class="bi bi-search" style="color:var(--text-3);margin-left:.6rem"></i><input id="hKw" placeholder="Search events, artists, venues..." onkeydown="if(event.key===\'Enter\')homeSearch()"><div class="hs-div"></div><select id="hCity"><option value="">All Cities</option></select><div class="hs-div"></div><input type="date" id="hDate" style="color:var(--text-2);max-width:160px"><button class="hs-btn" onclick="homeSearch()"><i class="bi bi-search"></i> Search</button></div><div class="hero-stats"><div class="hs-item"><div class="hs-num" id="hEv">'+S.stats.events_hosted+'</div><div class="hs-lbl">Events</div></div><div class="hs-item"><div class="hs-num" id="hCi">'+S.stats.cities_covered+'</div><div class="hs-lbl">Cities</div></div><div class="hs-item"><div class="hs-num" id="hUs">'+S.stats.happy_users+'</div><div class="hs-lbl">Happy Users</div></div><div class="hs-item"><div class="hs-num" id="hRt">'+S.stats.avg_rating+'</div><div class="hs-lbl">Avg Rating</div></div></div></div></div></section>';
+
+  getStats().then(d=>{const e=id=>$(id);if(e('#hEv'))e('#hEv').textContent=d.events_hosted;if(e('#hCi'))e('#hCi').textContent=d.cities_covered;if(e('#hUs'))e('#hUs').textContent=d.happy_users;if(e('#hRt'))e('#hRt').textContent=d.avg_rating;}).catch(()=>{});
+
+  cachedGet('/events?per_page=48').then(evts=>{const events=evts.events||[];const cities=[...new Set(events.map(e=>e.city).filter(Boolean))].sort();const sel=$('#hCity');if(sel)cities.forEach(c=>{const o=document.createElement('option');o.value=c;o.textContent=c;sel.appendChild(o)});const g=$('#trendGrid');if(g&&!g.children.length&&events.length){const first=events.slice(0,4);prefetchEventImages(first,4);g.innerHTML=first.map((ev,i)=>evCard(ev,i<4)).join('')}}).catch(()=>{});
+
+  // TRENDING EVENTS
+  pc.innerHTML+='<section class="section"><div class="container"><div class="sec-hdr" style="text-align:left"><div class="sec-tag"><i class="bi bi-fire"></i> Trending Now</div><h2>Trending Events</h2><p>Most popular events happening right now</p></div><div class="ev-grid" id="trendGrid"></div><div class="tc" style="margin-top:1.5rem"><button class="btn btn-g" onclick="navigate(\'/events\')">View All Events <i class="bi bi-arrow-right"></i></button></div></div></section>';
+
+  loadTrending();
+
+  // CATEGORIES
+  pc.innerHTML+='<section class="section reveal"><div class="container"><div class="sec-hdr cat-hdr"><div><div class="sec-tag"><i class="bi bi-grid-3x3-gap-fill"></i> Browse</div><h2>Explore by Category</h2><p>Tap any category to browse its events <span id="catCount"></span></p></div><button class="btn btn-g" onclick="navigate(\'/events\')">View All Events <i class="bi bi-arrow-right"></i></button></div><div class="cat-grid" id="catGrid"></div></div></section>';
+  loadCats();
+
+  // WHY FESTIVOHUB
+  pc.innerHTML+='<section class="section reveal"><div class="container"><div class="sec-hdr"><div class="sec-tag"><i class="bi bi-lightning-charge-fill"></i> Why FestivoHub</div><h2>Everything You Need</h2><p>The complete platform for discovering and managing events</p></div><div class="feat-grid"><div class="feat-card"><div class="feat-icon" style="background:rgba(124,58,237,.12);color:var(--purple-l)"><i class="bi bi-lightning-charge-fill"></i></div><h5>Easy Booking</h5><p>Book your favorite events in seconds with a seamless checkout experience.</p></div><div class="feat-card"><div class="feat-icon" style="background:rgba(34,197,94,.12);color:var(--green-l)"><i class="bi bi-shield-check"></i></div><h5>Secure Payments</h5><p>Safe and secure payment processing with instant confirmation.</p></div><div class="feat-card"><div class="feat-icon" style="background:rgba(236,72,153,.12);color:var(--pink-l)"><i class="bi bi-qr-code"></i></div><h5>Digital Tickets</h5><p>Get your ticket instantly on your phone with QR code entry.</p></div><div class="feat-card"><div class="feat-icon" style="background:rgba(249,115,22,.12);color:var(--orange-l)"><i class="bi bi-heart-fill"></i></div><h5>Discover Experiences</h5><p>Find experiences you\'ll remember for a lifetime.</p></div></div></div></section>';
+
+  // REVIEWS
+  pc.innerHTML+='<section class="section reveal"><div class="container"><div class="sec-hdr"><div class="sec-tag"><i class="bi bi-chat-quote-fill"></i> Reviews</div><h2>What People Say</h2><p>Hear from our happy event-goers</p></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem"><div class="rev-card"><div class="rev-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="rev-text">"Booking was super easy and the digital ticket made entry effortless. Best event platform in India!"</p><div class="rev-head" style="margin-top:.8rem;margin-bottom:0"><div class="rev-av" style="background:var(--g1)">PA</div><div><div style="font-weight:600;font-size:.88rem">Priya A.</div><div style="font-size:.75rem;color:var(--text-3)">Garba Night 2026</div></div></div></div><div class="rev-card"><div class="rev-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="rev-text">"As an organizer, FestivoHub made managing 500+ attendees a breeze. The QR check-in feature is genius."</p><div class="rev-head" style="margin-top:.8rem;margin-bottom:0"><div class="rev-av" style="background:var(--g2)">RK</div><div><div style="font-weight:600;font-size:.88rem">Rahul K.</div><div style="font-size:.75rem;color:var(--text-3)">Organizer</div></div></div></div><div class="rev-card"><div class="rev-stars">\u2605\u2605\u2605\u2605\u2605</div><p class="rev-text">"Found amazing food festivals near me that I never knew existed. FestivoHub is my go-to for weekend plans!"</p><div class="rev-head" style="margin-top:.8rem;margin-bottom:0"><div class="rev-av" style="background:var(--g3)">NS</div><div><div style="font-weight:600;font-size:.88rem">Neha S.</div><div style="font-size:.75rem;color:var(--text-3)">Food Festival Enthusiast</div></div></div></div></div></div></section>';
+
+  // HOST CTA
+  pc.innerHTML+='<section class="section reveal"><div class="container"><div class="cta-box"><h2>Host Your Next Big Event</h2><p>Reach thousands of event lovers with FestivoHub. Powerful tools for organizers.</p><button class="btn" onclick="navigate(\'/register\')">Become an Organizer <i class="bi bi-arrow-right"></i></button></div></div></section>';
+
+  // NEWSLETTER
+  pc.innerHTML+='<section class="section" style="padding-top:0"><div class="container"><div class="nl-section reveal"><div class="nl-text"><div class="sec-tag"><i class="bi bi-envelope-fill"></i> Newsletter</div><h3 style="font-family:Space Grotesk;font-weight:700;margin-bottom:.3rem">Never Miss an Event</h3><p class="t2" style="font-size:.9rem">Get personalized event recommendations delivered to your inbox.</p></div><div class="nl-form"><input type="email" id="nlEmail" placeholder="Enter your email"><button class="btn btn-p" onclick="handleNewsletter()">Subscribe</button></div></div></div></section>';
+
+  animateReveal();
+}
+
+function homeSearch(){
+  const kw=($('#hKw')||{}).value||'';
+  const city=($('#hCity')||{}).value||'';
+  const date=($('#hDate')||{}).value||'';
+  let q='/events?';
+  if(kw)q+='keyword='+encodeURIComponent(kw)+'&';
+  if(city)q+='city='+encodeURIComponent(city)+'&';
+  if(date)q+='event_date='+date+'&';
+  navigate('/events'+q.replace(/[&?]$/,''));
+}
+
+async function loadTrending(){
+  const g=$('#trendGrid');if(!g)return;
+  try{const d=await cachedGet('/events?per_page=4&sort=popular');if(!d.events||!d.events.length){if(!g.children.length)g.innerHTML=empty('calendar-x','No Events Yet','Check back soon for exciting events!');return}prefetchEventImages(d.events,4);g.innerHTML=d.events.map((ev,i)=>evCard(ev,i<4)).join('')}catch(e){if(!g.children.length)g.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+
+const catIcons={Music:'music-note-beamed',Garba:'music-note-beating',Cultural:'palette',Art:'brush',Food:'cup-hot',Sports:'trophy',Cricket:'trophy',Business:'briefcase',Comedy:'emoji-laughing',Wellness:'heart-pulse',Family:'people-fill',Education:'mortarboard',Tech:'cpu',Technology:'cpu',Dance:'music-note-beating',Workshop:'tools',Workshops:'tools',Religious:'flower1',Nightlife:'moon-stars',Festival:'stars',Other:'tag'};
+const DEFAULT_CATEGORIES=['Music','Garba','Cultural','Religious','Food','Sports','Technology','Business','Comedy','Workshops','Dance','Cricket','Education','Art','Other'];
+
+function catCardHtml(name,icon){
+  const ic=String(catIcons[name]||icon||'tag').replace(/^bi-/,'');
+  return '<button type="button" class="cat-card" title="Browse '+esc(name)+' events" aria-label="Browse '+esc(name)+' events" onclick="navigate(\'/events?category='+encodeURIComponent(name)+'\')"><span class="cat-icon"><i class="bi bi-'+esc(ic)+'"></i></span><span class="cat-name">'+esc(name)+'</span><i class="bi bi-arrow-up-right cat-arrow"></i></button>';
+}
+
+function renderCatCards(list){
+  const g=$('#catGrid');if(!g)return;
+  const names=[...new Set((list||[]).map(c=>typeof c==='string'?c:c&&c.name).filter(Boolean))];
+  if(!names.length)return;
+  g.innerHTML=names.map(n=>catCardHtml(n,(list||[]).find(c=>(c&&c.name)===n&&c.icon))).join('');
+}
+
+async function loadCats(){
+  const g=$('#catGrid');if(!g)return;
+  renderCatCards(S.categories.length?S.categories:DEFAULT_CATEGORIES);
+  try{
+    S.categories=await getCategories();
+    renderCatCards(S.categories);
+    const n=$('#catCount');
+    if(n)n.textContent=S.categories.length?'- '+S.categories.length+' categories':'';
+  }catch(e){}
+}
+
+function handleNewsletter(){
+  const el=$('#nlEmail');if(!el||!el.value){toast('Enter your email','err');return}
+  toast('Subscribed! Check your inbox.');el.value='';
+}
+
+async function toggleFav(evId){
+  if(!S.user||S.user.role!=='user'){toast('Login to save favorites','err');navigate('/login');return}
+  try{await api('/favorites',{method:'POST',body:{event_id:evId}});toast('Updated favorites')}catch(e){toast(e.message,'err')}
+}
+// ============ EXPLORE EVENTS PAGE ============
+async function renderEvents(){
+  const pc=$('#page');
+  const qIdx=S.route.indexOf('?');
+  const qs=qIdx>-1?new URLSearchParams(S.route.slice(qIdx)):new URLSearchParams();
+  const kw=qs.get('keyword')||'',city=qs.get('city')||'',cat=qs.get('category')||'';
+  const date=qs.get('event_date')||'';
+  const page=parseInt(qs.get('page')||'1',10);
+
+   pc.innerHTML='<section class="section ev-section" style="padding-top:calc(var(--nav-h) + 1.5rem)"><div class="container ev-container"><div class="sec-hdr" style="text-align:left;margin-bottom:1.5rem"><h2>Discover Events</h2><p class="t2" style="margin:0">Find your next unforgettable experience</p></div><div class="ev-count-row"><span class="t2" style="font-size:.88rem" id="evCount"></span></div><div class="ev-grid" id="evGrid"></div><div class="pager" id="evPag"></div></div></section>';
+
+  loadEventsList(kw,city,cat,page,date);
+}
+
+async function loadEventsList(kw,city,cat,page,date){
+  const grid=$('#evGrid'),pag=$('#evPag'),count=$('#evCount');
+  if(!grid)return;
+  try{
+    let q='?page='+page+'&per_page=12&sort=date';
+    if(kw)q+='&keyword='+encodeURIComponent(kw);
+    if(city)q+='&city='+encodeURIComponent(city);
+    if(cat)q+='&category='+encodeURIComponent(cat);
+    if(date)q+='&event_date='+date+'&';
+     const d=await cachedGet('/events'+q,15000);
+     if(count)count.textContent=d.total+' Events Found';
+     if(!d.events||!d.events.length){grid.innerHTML=empty('search','No Events Found','Try adjusting your search terms.');pag.innerHTML='';return}
+     prefetchEventImages(d.events,4);
+     grid.innerHTML=d.events.map((ev,i)=>evCard(ev,i<4)).join('');
+    const tp=Math.ceil(d.total/d.per_page);
+    if(tp>1){let h='';if(page>1)h+='<button onclick="evGo('+(page-1)+')"><i class="bi bi-chevron-left"></i></button>';for(let i=Math.max(1,page-2);i<=Math.min(tp,page+2);i++)h+='<button class="'+(i===page?'active':'')+'" onclick="evGo('+i+')">'+i+'</button>';if(page<tp)h+='<button onclick="evGo('+(page+1)+')"><i class="bi bi-chevron-right"></i></button>';pag.innerHTML=h}else pag.innerHTML='';
+  }catch(e){grid.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+function evGo(p){
+  const qs=new URLSearchParams(S.route.indexOf('?')>-1?S.route.slice(S.route.indexOf('?')+1):'');
+  qs.set('page',p);navigate('/events?'+qs.toString());
+}// ============ EVENT DETAIL PAGE ============
+async function renderEventDetail(id){
+  const pc=$('#page');
+   pc.innerHTML='';
+  try{
+    const ev=await api('/events/'+id);
+    S._evData=ev;
+    const sold=metric(ev.sold),soldPct=ev.total_seats?Math.round((sold/ev.total_seats)*100):0;
+    const src=ev.image||(ev.images&&ev.images[0])||'https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=500&fit=crop';
+     const FB='https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1200&h=500&fit=crop';
+     preloadImage(src,[640,960,1400],'100vw');
+
+     let h='<section class="section" style="padding-top:calc(var(--nav-h)+1rem)"><div class="container">';
+     // Hero
+     h+='<div class="detail-hero"><img src="'+img(src,960)+'" srcset="'+srcSetWidths(src,[640,960,1400])+'" sizes="100vw" width="1400" height="500" alt="'+esc(ev.title)+'" decoding="async" loading="eager" fetchpriority="high" onerror="imageFallback(this,\''+img(FB,1400)+'\')"><div class="dh-overlay"></div><div class="dh-content"><div style="display:flex;gap:.4rem;margin-bottom:.5rem;flex-wrap:wrap"><span class="badge b-purple">'+esc(ev.category_name||'')+'</span><span class="badge b-'+badgeClass(ev.event_status||ev.status)+'">'+esc(ev.event_status||ev.status)+'</span></div><h1 style="font-family:Space Grotesk;font-weight:700;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:.5rem">'+esc(ev.title)+'</h1><div style="display:flex;gap:1.5rem;flex-wrap:wrap;color:var(--text-2);font-size:.88rem;margin-top:.3rem"><span>'+stars(ev.avg_rating||0)+' '+(ev.avg_rating||0)+'</span><span><i class="bi bi-calendar-fill"></i> '+fmtD(ev.event_date)+'</span><span><i class="bi bi-clock-fill"></i> '+(ev.event_time||'TBA')+'</span><span><i class="bi bi-geo-alt-fill"></i> '+esc(ev.venue||'')+', '+esc(ev.city||'')+'</span></div></div></div>';
+
+    // Grid
+    h+='<div class="detail-grid"><div>';
+    // About
+    h+='<div class="card" style="padding:1.5rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem"><i class="bi bi-info-circle-fill" style="color:var(--purple-l)"></i> About This Event</h5><p style="color:var(--text-2);line-height:1.8;white-space:pre-line;font-size:.92rem">'+esc(ev.description||'')+'</p></div>';
+    // Capacity
+    h+='<div class="card" style="padding:1.5rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem"><i class="bi bi-bar-chart-fill" style="color:var(--purple-l)"></i> Capacity</h5><div style="display:flex;justify-content:space-between;margin-bottom:.5rem;font-size:.85rem"><span class="t2">'+sold+' / '+ev.total_seats+' sold</span><span style="font-weight:600">'+soldPct+'%</span></div><div style="height:6px;background:var(--bg-3);border-radius:4px;overflow:hidden"><div style="height:100%;width:'+soldPct+'%;background:var(--g1);border-radius:4px;transition:width .6s"></div></div></div>';
+    // Reviews
+    if(ev.reviews&&ev.reviews.length){
+      h+='<div class="card" style="padding:1.5rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem"><i class="bi bi-chat-left-text-fill" style="color:var(--purple-l)"></i> Reviews ('+ev.reviews.length+')</h5>';
+      ev.reviews.forEach(r=>{h+='<div class="rev-card" style="background:var(--bg-3);border-color:var(--border)"><div class="rev-head"><div class="rev-av" style="background:var(--g3)">'+initials(r.user_name)+'</div><div><div style="font-weight:600;font-size:.88rem">'+esc(r.user_name)+'</div><div class="rev-stars" style="font-size:.75rem">'+[1,2,3,4,5].map(i=>'<i class="bi bi-star'+(i<=r.rating?'-fill':'')+'"></i>').join('')+'</div></div></div><p class="rev-text" style="font-size:.85rem">'+esc(r.text||'')+'</p></div>'});
+      h+='</div>';
+    }
+    // Write review
+    if(S.user&&S.user.role==='user'){
+      h+='<div class="card" style="padding:1.5rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem"><i class="bi bi-pencil-fill" style="color:var(--purple-l)"></i> Write a Review</h5><div class="fg"><label>Rating</label><select id="rvR"><option value="5">5 Stars</option><option value="4">4 Stars</option><option value="3">3 Stars</option><option value="2">2 Stars</option><option value="1">1 Star</option></select></div><div class="fg"><label>Your Review</label><textarea id="rvT" rows="3" placeholder="Share your experience..."></textarea></div><button class="btn btn-p" onclick="submitReview(\''+id+'\')"><i class="bi bi-send"></i> Submit Review</button></div>';
+    }
+    h+='</div>';
+
+    // SIDEBAR
+    h+='<div>';
+    // Tickets
+    h+='<div class="card" style="padding:1.3rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem"><i class="bi bi-ticket-perforated-fill" style="color:var(--purple-l)"></i> Select Tickets</h5>';
+    const tts=ev.ticket_types&&ev.ticket_types.length?ev.ticket_types:[{name:'General',price:ev.price||0,quantity:ev.total_seats||0,sold:ev.sold||0}];
+    tts.forEach((tt,i)=>{
+      const avail=tt.quantity-(tt.sold||0);
+      h+='<div class="tt-card'+(i===0?' sel':'')+'" onclick="selTT(this,\''+esc(tt.name)+'\','+tt.price+')" data-name="'+esc(tt.name)+'" data-price="'+tt.price+'"><div style="display:flex;justify-content:space-between;align-items:start"><div><div class="tt-name">'+esc(tt.name)+'</div><div class="tt-avail">'+avail+' available</div></div><div class="tt-price">'+fmt(tt.price)+'</div></div></div>';
+    });
+    h+='<div class="qty-row"><button onclick="qtyCh(-1)"><i class="bi bi-dash"></i></button><div class="qty" id="bkQty">1</div><button onclick="qtyCh(1)"><i class="bi bi-plus"></i></button></div>';
+    h+='<div class="order-box"><div class="ob-row"><span class="t2">Subtotal</span><span id="osSub">'+fmt(tts[0].price)+'</span></div><div class="ob-row"><span class="t2">Booking Fee</span><span>'+fmt(10)+'</span></div><div class="ob-row ob-total"><span>Total</span><span id="osTotal">'+fmt(tts[0].price+10)+'</span></div></div>';
+    h+='<button class="btn btn-p btn-lg" style="width:100%;justify-content:center;margin-top:.8rem" onclick="startBooking(\''+id+'\')"><i class="bi bi-ticket-perforated"></i> Book Now</button></div>';
+
+    // Organizer
+    if(ev.organizer){
+      h+='<div class="card" style="padding:1.3rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem"><i class="bi bi-building" style="color:var(--purple-l)"></i> Organizer</h5><div style="display:flex;align-items:center;gap:.7rem"><div class="rev-av" style="width:42px;height:42px;font-size:.9rem;background:var(--g1)">'+initials(ev.organizer.org_name||'')+'</div><div><div style="font-weight:600">'+esc(ev.organizer.org_name||'')+'</div><div class="t3" style="font-size:.8rem">'+esc(ev.organizer.email||'')+'</div></div></div></div>';
+    }
+
+    // Related
+    if(ev.related&&ev.related.length){
+      h+='<div class="card" style="padding:1.3rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem"><i class="bi bi-collection-fill" style="color:var(--purple-l)"></i> Similar Events</h5>';
+      ev.related.slice(0,3).forEach(r=>{
+         const rsrc=r.image||(r.images&&r.images[0])||FB;
+         h+='<div style="display:flex;gap:.6rem;margin-bottom:.5rem;cursor:pointer;padding:.4rem;border-radius:var(--radius-sm);transition:background .2s" onclick="navigate(\'/events/'+r._id+'\')" onmouseover="this.style.background=\'var(--surface-2)\'" onmouseout="this.style.background=\'transparent\'"><div style="width:52px;height:52px;border-radius:var(--radius-sm);overflow:hidden;flex-shrink:0"><img src="'+img(rsrc,200)+'" width="52" height="52" style="width:100%;height:100%;object-fit:cover" loading="lazy" decoding="async" onerror="imageFallback(this,\''+img(FB,200)+'\')" alt="'+esc(r.title||'')+'"></div><div><div style="font-weight:600;font-size:.85rem">'+esc(r.title||'')+'</div><div class="t3" style="font-size:.75rem">'+fmtD(r.event_date)+' &bull; '+fmt(r.price||0)+'</div></div></div>';
+      });
+      h+='</div>';
+    }
+
+     h+='</div></div></div></section>';
+     if(ev.related&&ev.related.length)prefetchEventImages(ev.related,3,200,'52px');
+     pc.innerHTML=h;
+  }catch(e){pc.innerHTML=empty('exclamation-triangle','Event Not Found',e.message,'<button class="btn btn-p" onclick="navigate(\'/events\')">Browse Events</button>')}
+}
+
+// ============ BOOKING HELPERS ============
+let _selTT=null,_selPrice=0;
+function selTT(el,name,price){$$('.tt-card').forEach(c=>c.classList.remove('sel'));el.classList.add('sel');_selTT=name;_selPrice=price;updOS()}
+function qtyCh(d){const el=$('#bkQty');let q=parseInt(el.textContent,10)+d;if(q<1)q=1;if(q>10)q=10;el.textContent=q;updOS()}
+function updOS(){const q=parseInt(($('#bkQty')||{}).textContent||'1',10);const sub=_selPrice*q;const fee=10*q;if($('#osSub'))$('#osSub').textContent=fmt(sub);if($('#osTotal'))$('#osTotal').textContent=fmt(sub+fee)}
+async function startBooking(evId){
+  if(!S.user){toast('Please log in to book','err');navigate('/login');return}
+  if(S.user.role!=='user'){toast('Only users can book tickets','err');return}
+  const q=parseInt(($('#bkQty')||{}).textContent||'1',10);
+  const tt=_selTT||'General';
+  try{
+    toast('Creating booking...');
+    const d=await api('/bookings',{method:'POST',body:{event_id:evId,ticket_type:tt,quantity:q}});
+    toast('Confirming payment...');
+     await api('/payments/verify',{method:'POST',body:{booking_id:d.booking_id,order_id:d.order.order_id}});
+     resetUserCaches();
+     toast('Booking confirmed! Your ticket is ready.');
+     navigate('/dashboard/tickets');
+  }catch(e){toast(e.message,'err')}
+}
+async function submitReview(evId){
+  const rating=($('#rvR')||{}).value;const text=($('#rvT')||{}).value;
+  if(!text||text.length<5){toast('Review must be at least 5 characters','err');return}
+  try{await api('/reviews',{method:'POST',body:{event_id:evId,rating:parseInt(rating,10),text}});toast('Review submitted!');renderEventDetail(evId)}catch(e){toast(e.message,'err')}
+}
+// ============ LOGIN ============
+async function renderLogin(){
+  const pc=$('#page');
+  pc.innerHTML='<section class="section" style="min-height:80vh;display:flex;align-items:center;padding-top:var(--nav-h)"><div style="max-width:420px;margin:0 auto;padding:0 1.5rem;width:100%"><div class="card" style="padding:2.5rem"><div class="tc"><div class="brand-icon" style="width:48px;height:48px;font-size:1.2rem;border-radius:14px;margin:0 auto 1.2rem"><i class="bi bi-calendar2-event"></i></div><h2 style="font-family:Space Grotesk;font-weight:700;margin-bottom:.2rem">Welcome Back</h2><p class="t2" style="margin-bottom:1.5rem;font-size:.9rem">Log in to your FestivoHub account</p></div><div class="fg"><label>Email</label><input type="email" id="lEmail" placeholder="you@example.com"></div><div class="fg"><label>Password</label><input type="password" id="lPass" placeholder="Your password"></div><div class="fg"><label>Login as</label><select id="lRole"><option value="user">User</option><option value="organizer">Organizer</option><option value="admin">Admin</option></select></div><button class="btn btn-p btn-lg" style="width:100%;justify-content:center;margin-top:.5rem" onclick="handleLogin()"><i class="bi bi-box-arrow-in-right"></i> Log In</button><p class="tc t2" style="margin-top:1rem;font-size:.88rem">Don\'t have an account? <a href="#/register" onclick="navigate(\'/register\')" style="font-weight:600">Sign Up</a></p><p class="tc" style="margin-top:.5rem"><a href="#" onclick="event.preventDefault();handleForgot()" style="font-size:.82rem">Forgot password?</a></p></div></div></section>';
+}
+async function handleLogin(){
+  const email=($('#lEmail')||{}).value,password=($('#lPass')||{}).value,role=($('#lRole')||{}).value;
+  if(!email||!password){toast('Enter email and password','err');return}
+  try{const d=await doLogin(email,password,role);toast('Welcome, '+d.name+'!');navigate('/dashboard')}catch(e){toast(e.message,'err')}
+}
+async function handleForgot(){
+  const email=prompt('Enter your email address:');
+  if(!email)return;
+  try{const d=await api('/auth/forgot',{method:'POST',body:{email}});toast(d.message||'Reset code sent!');
+    if(d.devResetCode){const np=prompt('DEV MODE - Reset code: '+d.devResetCode+'\nEnter new password:');
+      if(np){await api('/auth/reset',{method:'POST',body:{email,code:d.devResetCode,password:np}});toast('Password reset!')}}
+  }catch(e){toast(e.message,'err')}
+}
+
+// ============ REGISTER ============
+async function renderRegister(){
+  const pc=$('#page');
+  pc.innerHTML='<section class="section" style="min-height:80vh;display:flex;align-items:center;padding-top:var(--nav-h)"><div style="max-width:480px;margin:0 auto;padding:0 1.5rem;width:100%"><div class="card" style="padding:2.5rem"><div class="tc"><div class="brand-icon" style="width:48px;height:48px;font-size:1.2rem;border-radius:14px;margin:0 auto 1.2rem"><i class="bi bi-calendar2-event"></i></div><h2 style="font-family:Space Grotesk;font-weight:700;margin-bottom:.2rem">Create Account</h2><p class="t2" style="margin-bottom:1.5rem;font-size:.9rem">Join FestivoHub today</p></div><div class="fg"><label>Register as</label><select id="rRole" onchange="togReg()"><option value="user">User</option><option value="organizer">Organizer</option></select></div><div id="rNameGrp" class="fg"><label>Full Name</label><input type="text" id="rName" placeholder="Your name"></div><div id="rOrgGrp" class="fg hidden"><label>Organization Name</label><input type="text" id="rOrg" placeholder="Your organization"></div><div class="fg-row"><div class="fg"><label>Email</label><input type="email" id="rEmail" placeholder="you@example.com"></div><div class="fg"><label>Phone</label><input type="tel" id="rPhone" placeholder="10-digit phone" maxlength="10"></div></div><div class="fg"><label>Password</label><input type="password" id="rPass" placeholder="Min 6 characters"></div><button class="btn btn-p btn-lg" style="width:100%;justify-content:center;margin-top:.5rem" onclick="handleRegister()"><i class="bi bi-person-plus"></i> Create Account</button><p class="tc t2" style="margin-top:1rem;font-size:.88rem">Already have an account? <a href="#/login" onclick="navigate(\'/login\')" style="font-weight:600">Log In</a></p></div></div></section>';
+}
+function togReg(){const r=($('#rRole')||{}).value;$('#rNameGrp').classList.toggle('hidden',r==='organizer');$('#rOrgGrp').classList.toggle('hidden',r!=='organizer')}
+async function handleRegister(){
+  const role=($('#rRole')||{}).value;
+  const name=role==='organizer'?($('#rOrg')||{}).value:($('#rName')||{}).value;
+  const email=($('#rEmail')||{}).value,phone=($('#rPhone')||{}).value,password=($('#rPass')||{}).value;
+  if(!name||!email||!phone||!password){toast('All fields are required','err');return}
+  if(password.length<6){toast('Password must be at least 6 characters','err');return}
+  try{const body={email,password,phone,role};if(role==='organizer')body.org_name=name;else body.full_name=name;
+    const d=await api('/auth/register',{method:'POST',body});setAuth(d);toast('Welcome, '+(d.name||name));navigate('/dashboard')}catch(e){toast(e.message,'err')}
+}
+
+// ============ CONTACT ============
+async function renderContact(){
+  const pc=$('#page');
+  pc.innerHTML='<section class="section" style="padding-top:calc(var(--nav-h)+1.5rem)"><div class="container"><div class="sec-hdr"><div class="sec-tag"><i class="bi bi-envelope-fill"></i> Get in Touch</div><h2>Contact Us</h2><p>Have questions? We\'d love to hear from you.</p></div><div style="display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem" id="ctGrid"><div class="card" style="padding:2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:1.2rem">Send a Message</h5><div class="fg-row"><div class="fg"><label>Your Name</label><input type="text" id="ctName" placeholder="John Doe"></div><div class="fg"><label>Email</label><input type="email" id="ctEmail" placeholder="you@example.com"></div></div><div class="fg"><label>Phone (Optional)</label><input type="tel" id="ctPhone" placeholder="10-digit phone"></div><div class="fg"><label>Subject</label><input type="text" id="ctSub" placeholder="How can we help?"></div><div class="fg"><label>Message</label><textarea id="ctMsg" rows="5" placeholder="Tell us more..."></textarea></div><button class="btn btn-p btn-lg" style="width:100%;justify-content:center" onclick="handleContact()"><i class="bi bi-send-fill"></i> Send Message</button></div><div><div class="card mb-1" style="padding:1.3rem;display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g1);width:42px;height:42px;font-size:1rem;border-radius:10px"><i class="bi bi-envelope-fill"></i></div><div><div style="font-weight:600;font-size:.9rem">Email</div><div class="t2" style="font-size:.85rem">support@festivohub.com</div></div></div><div class="card mb-1" style="padding:1.3rem;display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g2);width:42px;height:42px;font-size:1rem;border-radius:10px"><i class="bi bi-telephone-fill"></i></div><div><div style="font-weight:600;font-size:.9rem">Phone</div><div class="t2" style="font-size:.85rem">+91 1800-123-4567</div></div></div><div class="card" style="padding:1.3rem;display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g4);width:42px;height:42px;font-size:1rem;border-radius:10px"><i class="bi bi-geo-alt-fill"></i></div><div><div style="font-weight:600;font-size:.9rem">Office</div><div class="t2" style="font-size:.85rem">Mumbai, Maharashtra, India</div></div></div></div></div></div></section>';
+  // Responsive
+  if(window.innerWidth<768){const g=$('#ctGrid');if(g)g.style.gridTemplateColumns='1fr'}
+}
+async function handleContact(){
+  const name=($('#ctName')||{}).value,email=($('#ctEmail')||{}).value,phone=($('#ctPhone')||{}).value,subject=($('#ctSub')||{}).value,message=($('#ctMsg')||{}).value;
+  if(!name||!email||!subject||!message){toast('All fields are required','err');return}
+  try{await api('/contact',{method:'POST',body:{name,email,phone,subject,message}});toast('Message sent! We\'ll get back to you soon.');
+    ['ctName','ctEmail','ctPhone','ctSub','ctMsg'].forEach(s=>{const e=$('#'+s);if(e)e.value=''})}catch(e){toast(e.message,'err')}
+}
+
+// ============ ABOUT ============
+async function renderAbout(){
+  const pc=$('#page');
+  pc.innerHTML='<section class="section" style="padding-top:calc(var(--nav-h)+1.5rem);min-height:70vh"><div style="max-width:820px;margin:0 auto;padding:0 1.5rem"><div class="sec-hdr"><div class="sec-tag"><i class="bi bi-calendar2-event"></i> About FestivoHub</div><h2>India\'s Premier Event Booking Platform</h2><p>Connecting people with unforgettable experiences since 2024.</p></div><div class="card" style="padding:2.5rem;margin-bottom:2rem"><p style="color:var(--text-2);line-height:1.85;font-size:.95rem;margin-bottom:1rem">FestivoHub was born from a simple idea: making it easy for anyone in India to discover, book, and manage festivals and events. Whether it\'s a grand Navratri Garba night, an intimate music concert, a cutting-edge tech conference, or a mouth-watering food festival — we bring it all to your fingertips.</p><p style="color:var(--text-2);line-height:1.85;font-size:.95rem;margin-bottom:1rem">Our platform handles everything from event discovery and secure ticket booking to digital QR tickets and real-time check-ins. Organizers get powerful tools to manage their events, track sales, and understand their audience.</p><p style="color:var(--text-2);line-height:1.85;font-size:.95rem">Built with love in India, FestivoHub is trusted by thousands of event organizers and hundreds of thousands of attendees across the country.</p></div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem"><div class="sc" style="flex-direction:column;text-align:center;padding:1.5rem"><div class="sc-icon" style="background:var(--g1);margin:0 auto .6rem"><i class="bi bi-calendar-check-fill"></i></div><div class="sc-val">'+S.stats.events_hosted+'</div><div class="sc-lbl">Events Hosted</div></div><div class="sc" style="flex-direction:column;text-align:center;padding:1.5rem"><div class="sc-icon" style="background:var(--g2);margin:0 auto .6rem"><i class="bi bi-geo-alt-fill"></i></div><div class="sc-val">'+S.stats.cities_covered+'</div><div class="sc-lbl">Cities</div></div><div class="sc" style="flex-direction:column;text-align:center;padding:1.5rem"><div class="sc-icon" style="background:var(--g3);margin:0 auto .6rem"><i class="bi bi-people-fill"></i></div><div class="sc-val">'+S.stats.happy_users+'</div><div class="sc-lbl">Happy Users</div></div><div class="sc" style="flex-direction:column;text-align:center;padding:1.5rem"><div class="sc-icon" style="background:var(--g5);margin:0 auto .6rem"><i class="bi bi-star-fill"></i></div><div class="sc-val">'+S.stats.avg_rating+'</div><div class="sc-lbl">Avg Rating</div></div></div></div></section>';
+}
+// ============ DASHBOARD SHELL ============
+function dashShell(role,active){
+  const pages={
+    user:[{id:'overview',icon:'speedometer2',label:'Dashboard'},{id:'bookings',icon:'ticket-perforated',label:'My Bookings'},{id:'tickets',icon:'qr-code',label:'My Tickets'},{id:'favorites',icon:'heart',label:'Favorites'},{id:'profile',icon:'person',label:'Profile'}],
+    organizer:[{id:'overview',icon:'speedometer2',label:'Dashboard'},{id:'events',icon:'calendar-event',label:'My Events'},{id:'create-event',icon:'plus-circle',label:'Create Event'},{id:'bookings',icon:'ticket-perforated',label:'Bookings'},{id:'checkin',icon:'qr-code-scan',label:'Check-In'},{id:'analytics',icon:'bar-chart',label:'Analytics'},{id:'revenue',icon:'currency-rupee',label:'Revenue'},{id:'profile',icon:'person',label:'Profile'}],
+    admin:[{id:'overview',icon:'speedometer2',label:'Dashboard'},{id:'events',icon:'calendar-event',label:'Events'},{id:'categories',icon:'tags',label:'Categories'},{id:'users',icon:'people',label:'Users'},{id:'organizers',icon:'building',label:'Organizers'},{id:'bookings',icon:'ticket-perforated',label:'Bookings'},{id:'reviews',icon:'star',label:'Reviews'},{id:'contacts',icon:'envelope',label:'Contacts'},{id:'audit',icon:'shield-lock',label:'Audit Log'},{id:'settings',icon:'gear',label:'Settings'}]
+  };
+  const items=pages[role]||pages.user;
+  const pg=active||'overview';
+  const uname=S.user?S.user.name||S.user.email:'User';
+  const pc=$('#page');
+  pc.innerHTML='<div class="dash"><aside class="dash-side"><div class="brand" style="margin-bottom:1.5rem;cursor:pointer" onclick="navigate(\'/\')"><div class="brand-icon" style="width:28px;height:28px;font-size:.8rem;border-radius:8px"><i class="bi bi-calendar2-event"></i></div><span style="font-size:1rem">FestivoHub</span></div><div style="flex:1">'+items.map(i=>'<div class="sb-link'+(i.id===pg?' active':'')+'" onclick="dashNav(\''+i.id+'\')"><i class="bi bi-'+i.icon+'"></i>'+i.label+'</div>').join('')+'</div><div style="margin-top:auto;padding-top:.8rem;border-top:1px solid var(--border)"><div class="sb-link" onclick="logout()"><i class="bi bi-box-arrow-right"></i>Logout</div></div></aside><main class="dash-main"><div class="dash-hdr"><div><h1 id="dTitle">'+(items.find(i=>i.id===pg)||{}).label+'</h1><p class="t2" style="font-size:.85rem;margin:0">Welcome back, '+esc(uname)+'</p></div><button class="btn btn-g btn-sm" onclick="navigate(\'/\')"><i class="bi bi-house"></i> Home</button></div><div class="dash-body" id="dBdy"></div></main></div>';
+}
+function dashNav(p){navigate('/dashboard/'+p)}
+
+// ============ PROFILE ============
+async function renderProfile(c,role){
+  c.innerHTML=sp();
+  try{
+    const me=await api('/me');
+    c.innerHTML='<div style="max-width:560px"><div class="card tc" style="padding:2rem;margin-bottom:1.2rem"><div class="rev-av" style="width:68px;height:68px;font-size:1.4rem;margin:0 auto .8rem;background:var(--g1)">'+initials(me.full_name||me.org_name||me.name||'')+'</div><h4 style="font-family:Space Grotesk">'+esc(me.full_name||me.org_name||me.name||'')+'</h4><p class="t2" style="font-size:.85rem">'+esc(me.email||'')+'</p><span class="badge b-purple" style="margin-top:.4rem">'+esc(role)+'</span></div><div class="card" style="padding:1.5rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:1rem">Edit Profile</h5><div class="fg"><label>'+(role==='organizer'?'Organization Name':'Full Name')+'</label><input type="text" id="pName" value="'+esc(me.full_name||me.org_name||'')+'"></div><div class="fg"><label>Phone</label><input type="tel" id="pPhone" value="'+esc(me.phone||'')+'"></div><div class="fg"><label>Address</label><input type="text" id="pAddr" value="'+esc(me.address||'')+'"></div><div class="fg"><label>City</label><input type="text" id="pCity" value="'+esc(me.city||'')+'"></div>'+(role==='organizer'?'<div class="fg"><label>Description</label><textarea id="pDesc" rows="3">'+esc(me.description||'')+'</textarea></div><div class="fg"><label>Website</label><input type="url" id="pWeb" value="'+esc(me.website||'')+'"></div>':'')+'<button class="btn btn-p" onclick="saveProfile(\''+role+'\')"><i class="bi bi-check-lg"></i> Save Changes</button></div><div class="card" style="padding:1.5rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:1rem">Change Password</h5><div class="fg"><label>Current Password</label><input type="password" id="pCurr"></div><div class="fg"><label>New Password</label><input type="password" id="pNew" placeholder="Min 6 characters"></div><button class="btn btn-amber" onclick="changePass()"><i class="bi bi-lock-fill"></i> Update Password</button></div></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function saveProfile(role){
+  const body={};if(role==='organizer'){body.org_name=($('#pName')||{}).value;body.description=($('#pDesc')||{}).value;body.website=($('#pWeb')||{}).value}else body.full_name=($('#pName')||{}).value;
+  body.phone=($('#pPhone')||{}).value;body.address=($('#pAddr')||{}).value;body.city=($('#pCity')||{}).value;
+  try{await api('/profile',{method:'PUT',body});toast('Profile updated!')}catch(e){toast(e.message,'err')}
+}
+async function changePass(){
+  const current=($('#pCurr')||{}).value,next=($('#pNew')||{}).value;
+  if(!current||!next){toast('Fill both fields','err');return}
+  if(next.length<6){toast('Min 6 characters','err');return}
+  try{await api('/profile/password',{method:'POST',body:{current,next}});toast('Password updated!');$('#pCurr').value='';$('#pNew').value=''}catch(e){toast(e.message,'err')}
+}
+
+// ============ USER DASHBOARD ============
+async function renderUserDash(sub){
+  dashShell('user',sub||'overview');
+  const c=$('#dBdy');if(!c)return;
+  if(sub==='bookings')return uBookings(c);
+  if(sub==='tickets')return uTickets(c);
+  if(sub==='favorites')return uFavs(c);
+  if(sub==='profile')return renderProfile(c,'user');
+  uOverview(c);
+}
+async function getUserBookings(){
+  if(Array.isArray(S.bookings))return S.bookings;
+  if(!S.bookingsPromise)S.bookingsPromise=api('/my-bookings').then(b=>{S.bookings=b;return b}).catch(e=>{S.bookingsPromise=null;throw e});
+  return S.bookingsPromise;
+}
+async function getUserTickets(){
+  if(Array.isArray(S.tickets))return S.tickets;
+  if(!S.ticketsPromise)S.ticketsPromise=api('/user/tickets').then(t=>{S.tickets=t;return t}).catch(e=>{S.ticketsPromise=null;throw e});
+  return S.ticketsPromise;
+}
+async function uOverview(c){
+  c.innerHTML=sp();
+  try{
+     const[bk,tk]=await Promise.all([getUserBookings().catch(()=>[]),getUserTickets().catch(()=>[])]);
+     const conf=bk.filter(confirmedBooking);
+     const spent=conf.reduce((s,b)=>s+bookingRevenue(b),0);
+    c.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.2rem">'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g1)"><i class="bi bi-ticket-perforated"></i></div><div><div class="sc-val">'+metric(bk.length)+'</div><div class="sc-lbl">Total Bookings</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g4)"><i class="bi bi-check-circle"></i></div><div><div class="sc-val">'+metric(conf.length)+'</div><div class="sc-lbl">Confirmed</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'tickets\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g3)"><i class="bi bi-qr-code"></i></div><div><div class="sc-val">'+metric(tk.length)+'</div><div class="sc-lbl">Digital Tickets</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g5)"><i class="bi bi-currency-rupee"></i></div><div><div class="sc-val">'+fmt(metric(spent))+'</div><div class="sc-lbl">Total Spent</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'</div>';
+    if(bk.length){
+      c.innerHTML+='<div class="card" style="padding:1.3rem"><div style="display:flex;justify-content:space-between;margin-bottom:.8rem"><h5 style="font-family:Space Grotesk;font-weight:600">Recent Bookings</h5></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Booking</th><th>Event</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead><tbody>'+bk.slice(0,5).map(b=>'<tr><td><code>'+esc(b.booking_id)+'</code></td><td>'+esc(b.event_title)+'</td><td>'+fmtD(b.event_date)+'</td><td>'+fmt(bookingRevenue(b))+'</td><td><span class="badge b-'+badgeClass(b.booking_status)+'">'+esc(b.booking_status)+'</span></td></tr>').join('')+'</tbody></table></div></div>';
+    }else c.innerHTML+=empty('calendar-x','No Bookings Yet','Discover amazing events and book your first ticket!','<button class="btn btn-p" onclick="navigate(\'/events\')"><i class="bi bi-compass"></i> Browse Events</button>');
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function uBookings(c){
+  c.innerHTML=sp();
+  try{
+     const bk=await getUserBookings();
+    if(!bk.length){c.innerHTML=empty('ticket-perforated','No Bookings','Your bookings will appear here.','<button class="btn btn-p" onclick="navigate(\'/events\')">Browse Events</button>');return}
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Booking</th><th>Event</th><th>Date</th><th>Qty</th><th>Amount</th><th>Payment</th><th>Status</th><th>Action</th></tr></thead><tbody>'+bk.map(b=>'<tr><td><code>'+esc(b.booking_id)+'</code></td><td><a href="#/events/'+esc(b.event_id)+'" onclick="navigate(\'/events/'+esc(b.event_id)+'\')">'+esc(b.event_title)+'</a></td><td>'+fmtD(b.event_date)+'</td><td>'+metric(bookingQuantity(b))+'</td><td>'+fmt(bookingRevenue(b))+'</td><td><span class="badge b-'+badgeClass(b.payment_status)+'">'+esc(b.payment_status)+'</span></td><td><span class="badge b-'+badgeClass(b.booking_status)+'">'+esc(b.booking_status)+'</span></td><td>'+(b.booking_status==='Confirmed'?'<button class="btn btn-danger btn-sm" onclick="cancelBk(\''+b._id+'\')">Cancel</button>':'')+'</td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function cancelBk(id){if(!confirm('Cancel this booking?'))return;try{await api('/bookings/'+id+'/cancel',{method:'POST'});resetUserCaches();toast('Booking cancelled');uBookings($('#dBdy'))}catch(e){toast(e.message,'err')}}
+
+async function uTickets(c){
+  c.innerHTML=sp();
+  try{
+     const tk=await getUserTickets();
+    if(!tk.length){c.innerHTML=empty('qr-code','No Tickets Yet','Book an event to get your digital QR ticket.','<button class="btn btn-p" onclick="navigate(\'/events\')">Browse Events</button>');return}
+    c.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem">'+tk.map(t=>'<div class="ticket-disp" id="tkt-'+t._id+'"><div class="td-hdr"><h5 style="margin:0;font-family:Space Grotesk;font-size:1rem">'+esc(t.event_title)+'</h5><p style="margin:.3rem 0 0;opacity:.85;font-size:.85rem">'+fmtD(t.event_date)+' &bull; '+esc(t.event_time||'TBA')+'</p></div><div class="td-body"><div class="td-qr" id="qr-'+t._id+'"><div class="spinner" style="width:24px;height:24px;border-width:2px"></div></div><div style="font-size:.78rem;color:var(--text-3);margin:.3rem 0"><code>'+esc(t.ticket_number||'')+'</code></div><div class="td-tear"></div><div class="td-info"><div class="td-row"><span>Booking</span><span><code>'+esc(t.booking_code)+'</code></span></div><div class="td-row"><span>Type</span><span>'+esc(t.ticket_type)+'</span></div><div class="td-row"><span>Qty</span><span>'+metric(bookingQuantity(t))+'</span></div><div class="td-row"><span>Venue</span><span>'+esc(t.venue||'')+'</span></div><div class="td-row"><span>Amount</span><span>'+fmt(bookingRevenue(t))+'</span></div><div class="td-row"><span>Status</span><span class="badge b-'+badgeClass(t.status)+'">'+esc(t.status)+'</span></div></div></div></div>').join('')+'</div>';
+    tk.forEach(t=>loadQR(t._id));
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function loadQR(tid){
+  const el=$('#qr-'+tid);if(!el)return;
+  try{
+    let qr=S.qrCache[tid];
+    if(!qr){const d=await api('/tickets/'+tid+'/qr');qr=d.qr;S.qrCache[tid]=qr}
+    if($('#qr-'+tid)===el&&qr)el.innerHTML='<img src="'+qr+'" width="240" height="240" loading="eager" decoding="async" alt="Ticket QR code">';
+  }catch(e){if($('#qr-'+tid)===el)el.innerHTML='<p class="t3" style="font-size:.78rem">QR unavailable</p>'}
+}
+
+async function uFavs(c){
+  c.innerHTML='';
+  try{
+     const favs=await api('/favorites');
+     if(!favs.length){c.innerHTML=empty('heart','No Favorites','Save events you love to find them easily later.','<button class="btn btn-p" onclick="navigate(\'/events\')">Browse Events</button>');return}
+     prefetchEventImages(favs,4);
+     c.innerHTML='<div class="ev-grid">'+favs.map((ev,i)=>evCard(ev,i<4)).join('')+'</div>';
+   }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+// ============ ORGANIZER DASHBOARD ============
+async function renderOrgDash(sub){
+  dashShell('organizer',sub||'overview');
+  const c=$('#dBdy');if(!c)return;
+  if(sub==='events')return oEvents(c);
+  if(sub==='create-event')return oCreate(c);
+  if(sub==='bookings')return oBookings(c);
+  if(sub==='checkin')return oCheckin(c);
+  if(sub==='analytics')return oAnalytics(c);
+  if(sub==='revenue')return oRevenue(c);
+  if(sub==='profile')return renderProfile(c,'organizer');
+  oOverview(c);
+}
+async function oOverview(c){
+  c.innerHTML=sp();
+  try{
+    const s=await api('/organizer/stats');
+    c.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.2rem">'
+      +'<div class="sc clickable" onclick="dashNav(\'events\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g1)"><i class="bi bi-calendar-event"></i></div><div><div class="sc-val">'+metric(s.total_events)+'</div><div class="sc-lbl">Total Events</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'events\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g4)"><i class="bi bi-check-circle"></i></div><div><div class="sc-val">'+metric(s.published_events)+'</div><div class="sc-lbl">Published</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g2)"><i class="bi bi-ticket-perforated"></i></div><div><div class="sc-val">'+metric(s.tickets_sold)+'</div><div class="sc-lbl">Tickets Sold</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'revenue\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g5)"><i class="bi bi-currency-rupee"></i></div><div><div class="sc-val">'+fmt(metric(s.revenue))+'</div><div class="sc-lbl">Revenue</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g3)"><i class="bi bi-hourglass"></i></div><div><div class="sc-val">'+metric(s.pending_bookings)+'</div><div class="sc-lbl">Pending</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'events\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)"><i class="bi bi-calendar-check"></i></div><div><div class="sc-val">'+metric(s.upcoming_events)+'</div><div class="sc-lbl">Upcoming</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'</div>';
+    c.innerHTML+='<div class="card" style="padding:1.3rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem">Quick Actions</h5><div style="display:flex;gap:.6rem;flex-wrap:wrap"><button class="btn btn-p" onclick="dashNav(\'create-event\')"><i class="bi bi-plus-circle"></i> Create Event</button><button class="btn btn-g" onclick="dashNav(\'bookings\')"><i class="bi bi-ticket-perforated"></i> Bookings</button><button class="btn btn-g" onclick="dashNav(\'analytics\')"><i class="bi bi-bar-chart"></i> Analytics</button></div></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function oEvents(c){
+  c.innerHTML=sp();
+  try{
+    const evs=await api('/organizer/my-events');
+    if(!evs.length){c.innerHTML=empty('calendar-x','No Events','Create your first event!','<button class="btn btn-p" onclick="dashNav(\'create-event\')">Create Event</button>');return}
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Event</th><th>Date</th><th>Price</th><th>Sold</th><th>Revenue</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+evs.map(e=>'<tr><td><strong>'+esc(e.title)+'</strong><br><span class="t3" style="font-size:.75rem">'+esc(e.venue||'')+'</span></td><td>'+fmtD(e.event_date)+'</td><td>'+fmt(e.price)+'</td><td>'+metric(e.tickets_booked)+'/'+metric(e.total_seats)+'</td><td>'+fmt(metric(e.revenue))+'</td><td><span class="badge b-'+badgeClass(e.status)+'">'+esc(e.status)+'</span></td><td><div style="display:flex;gap:.3rem;flex-wrap:wrap">'+(['Published','Approved'].includes(e.status)?'<button class="btn btn-g btn-sm" onclick="orgEvtSt(\''+e._id+'\',\'Unpublished\')">Unpublish</button>':'<button class="btn btn-p btn-sm" onclick="orgEvtSt(\''+e._id+'\',\'Published\')">Publish</button>')+'<button class="btn btn-danger btn-sm" onclick="orgDelEvt(\''+e._id+'\')"><i class="bi bi-trash"></i></button></div></td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function orgEvtSt(id,st){try{await api('/organizer/events/'+id+'/status',{method:'POST',body:{status:st}});toast('Updated');oEvents($('#dBdy'))}catch(e){toast(e.message,'err')}}
+async function orgDelEvt(id){if(!confirm('Delete?'))return;try{await api('/organizer/events/'+id,{method:'DELETE'});toast('Deleted');oEvents($('#dBdy'))}catch(e){toast(e.message,'err')}}
+async function oCreate(c){
+   let cats=S.categories;if(!cats.length)cats=await getCategories().catch(()=>[]);
+  c.innerHTML='<div style="max-width:660px"><div class="card" style="padding:2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:1.2rem"><i class="bi bi-plus-circle" style="color:var(--purple-l)"></i> Create New Event</h5><div class="fg"><label>Event Title *</label><input type="text" id="ceT" placeholder="e.g. Navratri Garba Night 2026"></div><div class="fg"><label>Description *</label><textarea id="ceD" rows="4" placeholder="Describe your event..."></textarea></div><div class="fg-row"><div class="fg"><label>Venue *</label><input type="text" id="ceV"></div><div class="fg"><label>City</label><input type="text" id="ceC"></div></div><div class="fg-row"><div class="fg"><label>Date *</label><input type="date" id="ceDate"></div><div class="fg"><label>Time *</label><input type="time" id="ceTime"></div></div><div class="fg-row"><div class="fg"><label>Category *</label><select id="ceCat">'+cats.map(c=>'<option>'+esc(c.name)+'</option>').join('')+'</select></div><div class="fg"><label>Price (\u20B9)</label><input type="number" id="ceP" min="0"></div></div><div class="fg-row"><div class="fg"><label>Seats *</label><input type="number" id="ceS" min="1"></div><div class="fg"><label>Image URL</label><input type="url" id="ceImg"></div></div><div class="fg"><label>Terms</label><textarea id="ceTerms" rows="2"></textarea></div><div style="display:flex;gap:.7rem"><button class="btn btn-p" onclick="submitEvt(false)"><i class="bi bi-send-fill"></i> Submit</button><button class="btn btn-g" onclick="submitEvt(true)"><i class="bi bi-save"></i> Draft</button></div></div></div>';
+}
+async function submitEvt(draft){
+  const b={title:($('#ceT')||{}).value,description:($('#ceD')||{}).value,venue:($('#ceV')||{}).value,city:($('#ceC')||{}).value,event_date:($('#ceDate')||{}).value,event_time:($('#ceTime')||{}).value,category_name:($('#ceCat')||{}).value,price:parseFloat(($('#ceP')||{}).value||'0'),total_seats:parseInt(($('#ceS')||{}).value||'0',10),image:($('#ceImg')||{}).value||null,terms:($('#ceTerms')||{}).value||'',status:draft?'Draft':undefined};
+  if(!b.title||!b.description||!b.venue||!b.event_date||!b.event_time){toast('Fill required fields','err');return}
+  try{await api('/organizer/events',{method:'POST',body:b});toast('Event created!');dashNav('events')}catch(e){toast(e.message,'err')}
+}
+async function oBookings(c){
+  c.innerHTML=sp();
+  try{
+    const d=await api('/organizer/bookings');
+    if(!d.bookings||!d.bookings.length){c.innerHTML=empty('ticket-perforated','No Bookings','Bookings will appear here.');return}
+    c.innerHTML='<div style="display:flex;justify-content:space-between;margin-bottom:1rem"><div class="t2" style="font-size:.88rem">'+d.total+' bookings</div><button class="btn btn-g btn-sm" onclick="window.open(\'/api/organizer/bookings/export\',\'_blank\')"><i class="bi bi-download"></i> Export CSV</button></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Booking</th><th>Customer</th><th>Event</th><th>Qty</th><th>Amount</th><th>Status</th><th>Date</th></tr></thead><tbody>'+d.bookings.map(b=>'<tr><td><code>'+esc(b.booking_id)+'</code></td><td>'+esc(b.user_name)+'<br><span class="t3" style="font-size:.75rem">'+esc(b.user_email)+'</span></td><td>'+esc(b.event_title)+'</td><td>'+metric(bookingQuantity(b))+'</td><td>'+fmt(bookingRevenue(b))+'</td><td><span class="badge b-'+badgeClass(b.booking_status)+'">'+esc(b.booking_status)+'</span></td><td>'+fmtD(b.booked_at)+'</td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function oCheckin(c){
+  c.innerHTML='<div style="max-width:460px;margin:0 auto"><div class="card" style="padding:2rem;text-align:center"><div style="font-size:2.5rem;color:var(--purple-l);margin-bottom:.8rem"><i class="bi bi-qr-code-scan"></i></div><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:1rem">QR Check-In</h5><div class="fg"><label>Enter QR Payload or Booking Code</label><input type="text" id="ciCode" placeholder="FHB123456"></div><button class="btn btn-p btn-lg" style="width:100%;justify-content:center" onclick="doCheckin()"><i class="bi bi-check-circle-fill"></i> Check In</button><div id="ciResult" style="margin-top:1rem"></div></div><div class="card mt-1" style="padding:1.3rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem">Recent Check-Ins</h5><div id="ciHist">'+sp()+'</div></div></div>';
+  loadCiHist();
+}
+async function doCheckin(){
+  const code=($('#ciCode')||{}).value;if(!code){toast('Enter a code','err');return}
+  const r=$('#ciResult');
+  try{
+    const d=await api('/organizer/check-in',{method:'POST',body:{qr_payload:code}});
+    if(d.already_checked_in)r.innerHTML='<div class="card" style="border-left:3px solid var(--amber);padding:1rem"><h5 style="color:var(--amber)"><i class="bi bi-exclamation-triangle-fill"></i> Already Checked In</h5><p class="t2" style="font-size:.85rem">'+esc(d.customer)+' | '+esc(d.event)+'</p></div>';
+    else{r.innerHTML='<div class="card" style="border-left:3px solid var(--green);padding:1rem"><h5 style="color:var(--green)"><i class="bi bi-check-circle-fill"></i> Success!</h5><p class="t2" style="font-size:.85rem">'+esc(d.customer)+' | '+esc(d.event)+' | '+esc(d.ticket_type)+' x'+d.quantity+'</p></div>';toast('Check-in successful!');loadCiHist()}
+    $('#ciCode').value='';
+  }catch(e){r.innerHTML='<div class="card" style="border-left:3px solid var(--red);padding:1rem"><h5 style="color:var(--red)"><i class="bi bi-x-circle-fill"></i> Failed</h5><p class="t2" style="font-size:.85rem">'+esc(e.message)+'</p></div>'}
+}
+async function loadCiHist(){const el=$('#ciHist');if(!el)return;try{const ch=await api('/organizer/check-ins');if(!ch.length){el.innerHTML='<p class="t3 tc">No check-ins yet</p>';return}el.innerHTML=ch.slice(0,10).map(c=>'<div style="display:flex;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--border);font-size:.85rem"><div><strong>'+esc(c.user_name)+'</strong> <span class="t3">at '+esc(c.event_title)+'</span></div><div class="t3" style="font-size:.75rem">'+new Date(c.checked_in_at).toLocaleString()+'</div></div>').join('')}catch(e){el.innerHTML=''}}
+async function oAnalytics(c){
+  c.innerHTML=sp();
+  try{
+    const d=await api('/organizer/analytics');
+    c.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.2rem"><div class="sc"><div class="sc-icon" style="background:var(--g1)"><i class="bi bi-calendar-event"></i></div><div><div class="sc-val">'+metric(d.total_events)+'</div><div class="sc-lbl">Events</div></div></div><div class="sc"><div class="sc-icon" style="background:var(--g4)"><i class="bi bi-check-circle"></i></div><div><div class="sc-val">'+metric(d.published_events)+'</div><div class="sc-lbl">Published</div></div></div><div class="sc"><div class="sc-icon" style="background:var(--g2)"><i class="bi bi-ticket-perforated"></i></div><div><div class="sc-val">'+metric(d.tickets_sold)+'</div><div class="sc-lbl">Tickets Sold</div></div></div><div class="sc"><div class="sc-icon" style="background:var(--g5)"><i class="bi bi-currency-rupee"></i></div><div><div class="sc-val">'+fmt(metric(d.total_revenue))+'</div><div class="sc-lbl">Revenue</div></div></div><div class="sc"><div class="sc-icon" style="background:var(--g3)"><i class="bi bi-eye"></i></div><div><div class="sc-val">'+metric(d.total_views)+'</div><div class="sc-lbl">Views</div></div></div><div class="sc"><div class="sc-icon" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)"><i class="bi bi-percent"></i></div><div><div class="sc-val">'+metric(d.conversion_rate)+'%</div><div class="sc-lbl">Conversion</div></div></div></div>';
+    if(d.best_event)c.innerHTML+='<div class="card" style="padding:1.3rem;margin-bottom:1.2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.4rem"><i class="bi bi-trophy-fill" style="color:var(--amber)"></i> Best Event</h5><p style="font-weight:600">'+esc(d.best_event.title)+'</p><p class="t2" style="font-size:.85rem">'+metric(d.best_event.sold)+' tickets sold</p></div>';
+    if(d.revenue_by_day&&Object.keys(d.revenue_by_day).length){
+      const days=Object.entries(d.revenue_by_day).sort((a,b)=>a[0].localeCompare(b[0]));
+      const mx=Math.max(...days.map(x=>x[1]),1);
+      c.innerHTML+='<div class="card" style="padding:1.3rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:1rem"><i class="bi bi-graph-up" style="color:var(--purple-l)"></i> Revenue (30 Days)</h5><div style="display:flex;align-items:end;gap:3px;height:130px">'+days.map(([day,rev])=>'<div title="'+day+': '+fmt(rev)+'" style="flex:1;height:' + Math.max((rev/mx)*100,3) + '%;background:var(--g1);border-radius:3px 3px 0 0;min-width:6px"></div>').join('')+'</div></div>';
+    }
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function oRevenue(c){
+  c.innerHTML=sp();
+  try{
+    const d=await api('/organizer/revenue');
+    c.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.2rem"><div class="sc"><div class="sc-icon" style="background:var(--g1)"><i class="bi bi-currency-rupee"></i></div><div><div class="sc-val">'+fmt(metric(d.total_revenue))+'</div><div class="sc-lbl">Gross</div></div></div><div class="sc"><div class="sc-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)"><i class="bi bi-percent"></i></div><div><div class="sc-val">'+fmt(metric(d.platform_fee))+'</div><div class="sc-lbl">Fee</div></div></div><div class="sc"><div class="sc-icon" style="background:var(--g4)"><i class="bi bi-wallet2"></i></div><div><div class="sc-val">'+fmt(metric(d.net_revenue))+ '</div><div class="sc-lbl">Net</div></div></div></div>';
+    if(d.recent_bookings&&d.recent_bookings.length)c.innerHTML+='<div class="card" style="padding:1.3rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:.8rem">Recent Transactions</h5><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Booking</th><th>Event</th><th>Amount</th><th>Date</th></tr></thead><tbody>'+d.recent_bookings.map(b=>'<tr><td><code>'+esc(b.booking_id)+'</code></td><td>'+esc(b.event_title)+'</td><td>'+fmt(bookingRevenue(b))+'</td><td>'+fmtD(b.booked_at)+'</td></tr>').join('')+'</tbody></table></div></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+// ============ ADMIN DASHBOARD ============
+async function renderAdminDash(sub){
+  dashShell('admin',sub||'overview');
+  const c=$('#dBdy');if(!c)return;
+  if(sub==='events')return aEvents(c);
+  if(sub==='categories')return aCategories(c);
+  if(sub==='users')return aUsers(c);
+  if(sub==='organizers')return aOrgs(c);
+  if(sub==='bookings')return aBookings(c);
+  if(sub==='reviews')return aReviews(c);
+  if(sub==='contacts')return aContacts(c);
+  if(sub==='audit')return aAudit(c);
+  if(sub==='settings')return aSettings(c);
+  aOverview(c);
+}
+async function aOverview(c){
+  c.innerHTML=sp();
+  try{
+    const d=await api('/admin/stats');
+    c.innerHTML='<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-bottom:1.2rem">'
+      +'<div class="sc clickable" onclick="dashNav(\'users\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g1)"><i class="bi bi-people"></i></div><div><div class="sc-val">'+metric(d.total_users)+'</div><div class="sc-lbl">Users</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'organizers\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g2)"><i class="bi bi-building"></i></div><div><div class="sc-val">'+metric(d.total_organizers)+'</div><div class="sc-lbl">Organizers</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'events\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g4)"><i class="bi bi-calendar-event"></i></div><div><div class="sc-val">'+metric(d.total_events)+'</div><div class="sc-lbl">Events</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'events\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g4)"><i class="bi bi-check-circle"></i></div><div><div class="sc-val">'+metric(d.published_events)+'</div><div class="sc-lbl">Published</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'events\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)"><i class="bi bi-calendar-check"></i></div><div><div class="sc-val">'+metric(d.upcoming_events)+'</div><div class="sc-lbl">Upcoming</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g5)"><i class="bi bi-currency-rupee"></i></div><div><div class="sc-val">'+fmt(metric(d.total_revenue))+'</div><div class="sc-lbl">Revenue</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:var(--g3)"><i class="bi bi-ticket-perforated"></i></div><div><div class="sc-val">'+metric(d.total_bookings)+'</div><div class="sc-lbl">Bookings</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)"><i class="bi bi-ticket"></i></div><div><div class="sc-val">'+metric(d.tickets_sold)+'</div><div class="sc-lbl">Tickets Sold</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'bookings\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:linear-gradient(135deg,#06b6d4,#22c55e)"><i class="bi bi-percent"></i></div><div><div class="sc-val">'+fmt(metric(d.platform_commission))+'</div><div class="sc-lbl">Commission</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'<div class="sc clickable" onclick="dashNav(\'events\')" style="justify-content:space-between"><div style="display:flex;align-items:center;gap:1rem"><div class="sc-icon" style="background:linear-gradient(135deg,#f43f5e,#fb923c)"><i class="bi bi-hourglass"></i></div><div><div class="sc-val">'+metric(d.pending_events)+' / '+metric(d.pending_organizers)+'</div><div class="sc-lbl">Pending</div></div></div><i class="bi bi-chevron-right t3"></i></div>'
+      +'</div>';
+    if(metric(d.open_contacts))c.innerHTML+='<div class="card" style="padding:1rem;display:flex;align-items:center;gap:1rem;cursor:pointer;margin-bottom:1rem" onclick="dashNav(\'contacts\')"><div class="sc-icon" style="background:var(--g2);width:40px;height:40px;font-size:1rem"><i class="bi bi-envelope-fill"></i></div><div><div style="font-weight:600">'+metric(d.open_contacts)+' open messages</div><div class="t3" style="font-size:.82rem">Click to review</div></div></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function aEvents(c){
+  c.innerHTML=sp();
+  try{
+    const evs=await api('/admin/events');
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Event</th><th>Organizer</th><th>Date</th><th>Price</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+evs.map(e=>'<tr><td><strong>'+esc(e.title)+'</strong><br><span class="t3" style="font-size:.75rem">'+esc(e.city||'')+'</span></td><td>'+esc(e.org_name||'')+'</td><td>'+fmtD(e.event_date)+'</td><td>'+fmt(e.price)+'</td><td><span class="badge b-'+badgeClass(e.status)+'">'+esc(e.status)+'</span></td><td><div style="display:flex;gap:.3rem;flex-wrap:wrap">'+(e.status==='Pending'?'<button class="btn btn-p btn-sm" onclick="admEvtSt(\''+e._id+'\',\'Approved\')">Approve</button><button class="btn btn-danger btn-sm" onclick="admEvtSt(\''+e._id+'\',\'Rejected\')">Reject</button>':'<button class="btn btn-g btn-sm" onclick="admEvtSt(\''+e._id+'\',\'Pending\')">Reset</button>')+'<button class="btn btn-danger btn-sm" onclick="admDelEvt(\''+e._id+'\')"><i class="bi bi-trash"></i></button></div></td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function admEvtSt(id,st){try{await api('/admin/events/'+id+'/status',{method:'POST',body:{status:st}});toast('Updated');aEvents($('#dBdy'))}catch(e){toast(e.message,'err')}}
+async function admDelEvt(id){if(!confirm('Delete?'))return;try{await api('/admin/events/'+id,{method:'DELETE'});toast('Deleted');aEvents($('#dBdy'))}catch(e){toast(e.message,'err')}}
+async function aCategories(c){
+  c.innerHTML=sp();
+  try{
+    const cats=await api('/admin/categories');
+    c.innerHTML='<div class="card" style="padding:1.3rem;margin-bottom:1.2rem"><div style="display:flex;justify-content:space-between;align-items:center;gap:1rem;margin-bottom:1rem"><div><h5 style="font-family:Space Grotesk;font-weight:600;margin:0">Categories</h5><p class="t2" style="font-size:.82rem;margin:.2rem 0 0">Add or remove event categories.</p></div><span class="badge b-purple">'+cats.length+' total</span></div><form onsubmit="return addCategory(event)" style="display:flex;gap:.6rem;align-items:flex-end;flex-wrap:wrap"><div class="fg" style="flex:1;min-width:220px;margin:0"><label>New category</label><input id="newCatName" type="text" maxlength="60" placeholder="e.g. Dance"></div><button class="btn btn-p" type="submit"><i class="bi bi-plus-lg"></i> Add Category</button></form></div><div class="tbl-wrap"><table class="tbl"><thead><tr><th>Category</th><th>Slug</th><th>Added</th><th>Action</th></tr></thead><tbody>'+(cats.length?cats.map(cat=>'<tr><td><strong>'+esc(cat.name||'')+'</strong></td><td><code>'+esc(cat.slug||'')+'</code></td><td>'+fmtD(cat.created_at)+'</td><td><button class="btn btn-danger btn-sm" onclick="admDelCat(\''+cat._id+'\')"><i class="bi bi-trash"></i> Delete</button></td></tr>').join(''):'<tr><td colspan="4" class="t3" style="text-align:center;padding:1.5rem">No categories found</td></tr>')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function addCategory(ev){
+  ev.preventDefault();
+  const name=($('#newCatName')||{}).value.trim();
+  if(!name){toast('Enter a category name','err');return false}
+  try{
+    await api('/admin/categories',{method:'POST',body:{name}});
+    S.categories=[];S.categoriesPromise=null;delete S.getCache['/categories'];
+    toast('Category added');aCategories($('#dBdy'));
+  }catch(e){toast(e.message,'err')}
+  return false;
+}
+async function admDelCat(id){
+  if(!confirm('Delete this category?'))return;
+  try{
+    await api('/admin/categories/'+id,{method:'DELETE'});
+    S.categories=[];S.categoriesPromise=null;delete S.getCache['/categories'];
+    toast('Category deleted');aCategories($('#dBdy'));
+  }catch(e){toast(e.message,'err')}
+}
+async function aUsers(c){
+  c.innerHTML=sp();
+  try{
+    const users=await api('/admin/users');
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>User</th><th>Email</th><th>Phone</th><th>Bookings</th><th>Spent</th><th>Status</th><th>Action</th></tr></thead><tbody>'+users.map(u=>'<tr><td>'+esc(u.full_name||'')+'</td><td>'+esc(u.email||'')+'</td><td>'+esc(u.phone||'')+'</td><td>'+metric(u.bookings_count)+'</td><td>'+fmt(metric(u.spent))+'</td><td><span class="badge b-'+badgeClass(u.status||'Active')+'">'+esc(u.status||'Active')+'</span></td><td><button class="btn btn-g btn-sm" onclick="admUserSt(\''+u._id+'\',\''+(u.status==='Blocked'?'Active':'Blocked')+'\')">'+(u.status==='Blocked'?'Unblock':'Block')+'</button></td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function admUserSt(id,st){try{await api('/admin/users/'+id,{method:'PATCH',body:{status:st}});toast('Updated');aUsers($('#dBdy'))}catch(e){toast(e.message,'err')}}
+async function aOrgs(c){
+  c.innerHTML=sp();
+  try{
+    const orgs=await api('/admin/organizers');
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Organizer</th><th>Email</th><th>Status</th><th>Actions</th></tr></thead><tbody>'+orgs.map(o=>'<tr><td><strong>'+esc(o.org_name||'')+'</strong></td><td>'+esc(o.email||'')+'</td><td><span class="badge b-'+badgeClass(o.status||'Approved')+'">'+esc(o.status||'Approved')+'</span></td><td><div style="display:flex;gap:.3rem">'+(o.status!=='Approved'?'<button class="btn btn-p btn-sm" onclick="admOrgSt(\''+o._id+'\',\'Approved\')">Approve</button>':'<button class="btn btn-g btn-sm" onclick="admOrgSt(\''+o._id+'\',\'Suspended\')">Suspend</button>')+'<button class="btn btn-danger btn-sm" onclick="admDelOrg(\''+o._id+'\')"><i class="bi bi-trash"></i></button></div></td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function admOrgSt(id,st){try{await api('/admin/organizers/'+id+'/status',{method:'POST',body:{status:st}});toast('Updated');aOrgs($('#dBdy'))}catch(e){toast(e.message,'err')}}
+async function admDelOrg(id){if(!confirm('Delete?'))return;try{await api('/admin/organizers/'+id,{method:'DELETE'});toast('Deleted');aOrgs($('#dBdy'))}catch(e){toast(e.message,'err')}}
+async function aBookings(c){
+  c.innerHTML=sp();
+  try{
+    const d=await api('/admin/bookings');const bk=d.bookings||d;
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Booking</th><th>User</th><th>Event</th><th>Amount</th><th>Payment</th><th>Status</th><th>Date</th></tr></thead><tbody>'+(Array.isArray(bk)?bk:[]).map(b=>'<tr><td><code>'+esc(b.booking_id||'')+'</code></td><td>'+esc(b.user_name||'')+'</td><td>'+esc(b.event_title||'')+'</td><td>'+fmt(bookingRevenue(b))+'</td><td><span class="badge b-'+badgeClass(b.payment_status)+'">'+esc(b.payment_status)+'</span></td><td><span class="badge b-'+badgeClass(b.booking_status)+'">'+esc(b.booking_status)+'</span></td><td>'+fmtD(b.booked_at)+'</td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function aReviews(c){
+  c.innerHTML=sp();
+  try{
+    const rv=await api('/admin/reviews');
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>User</th><th>Event</th><th>Rating</th><th>Review</th><th>Status</th></tr></thead><tbody>'+(rv||[]).map(r=>'<tr><td>'+esc(r.user_name||'')+'</td><td>'+esc(r.event_title||'')+'</td><td>'+stars(r.rating)+'</td><td style="max-width:200px">'+esc(r.text||'').slice(0,60)+'</td><td><span class="badge b-'+badgeClass(r.status)+'">'+esc(r.status)+'</span></td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function aContacts(c){
+  c.innerHTML=sp();
+  try{
+    const ms=await api('/admin/contacts');
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Name</th><th>Email</th><th>Subject</th><th>Status</th><th>Date</th></tr></thead><tbody>'+(ms||[]).map(m=>'<tr><td>'+esc(m.name)+'</td><td>'+esc(m.email)+'</td><td>'+esc(m.subject)+'</td><td><span class="badge b-'+badgeClass(m.status||'New')+'">'+esc(m.status||'New')+'</span></td><td>'+fmtD(m.created_at)+'</td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function aAudit(c){
+  c.innerHTML=sp();
+  try{
+    const logs=await api('/admin/audit');
+    c.innerHTML='<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Time</th><th>Admin</th><th>Action</th><th>Target</th></tr></thead><tbody>'+(logs||[]).map(l=>'<tr><td style="white-space:nowrap">'+new Date(l.timestamp).toLocaleString()+'</td><td>'+esc(l.admin_email||'')+'</td><td><span class="badge b-blue">'+esc(l.action)+'</span></td><td>'+esc(l.target_type||'')+'</td></tr>').join('')+'</tbody></table></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function aSettings(c){
+  c.innerHTML=sp();
+  try{
+    const s=await api('/admin/settings');const v=s.settings||s;
+    c.innerHTML='<div style="max-width:560px"><div class="card" style="padding:2rem"><h5 style="font-family:Space Grotesk;font-weight:600;margin-bottom:1.2rem"><i class="bi bi-gear-fill" style="color:var(--purple-l)"></i> Platform Settings</h5><div class="fg"><label>Platform Name</label><input type="text" id="sName" value="'+esc(v.platformName||'FestivoHub')+'"></div><div class="fg"><label>Currency Symbol</label><input type="text" id="sCurr" value="'+esc(v.currencySymbol||'\u20B9')+'"></div><div class="fg"><label>Commission (basis points)</label><input type="number" id="sComm" value="'+(v.commissionPercent||500)+'"></div><div class="fg"><label>Booking Fee (\u20B9)</label><input type="number" id="sFee" value="'+(v.bookingFee||10)+'"></div><div class="fg"><label>Maintenance Mode</label><select id="sMaint"><option value="false"'+(!v.maintenanceMode?' selected':'')+'>Off</option><option value="true"'+(v.maintenanceMode?' selected':'')+'>On</option></select></div><button class="btn btn-p" onclick="saveSet()"><i class="bi bi-check-lg"></i> Save</button></div></div>';
+  }catch(e){c.innerHTML=empty('exclamation-triangle','Error',e.message)}
+}
+async function saveSet(){
+  try{await api('/admin/settings',{method:'PUT',body:{platformName:($('#sName')||{}).value,currencySymbol:($('#sCurr')||{}).value,commissionPercent:parseInt(($('#sComm')||{}).value||'500',10),bookingFee:parseFloat(($('#sFee')||{}).value||'10'),maintenanceMode:($('#sMaint')||{}).value==='true'}});toast('Saved!')}catch(e){toast(e.message,'err')}
+}
+// ============ PAGE DISPATCHER ============
+function renderPage(route){
+  const pc=$('#page');if(!pc)return;
+  if(route.startsWith('/dashboard')){
+    if(!S.user){navigate('/login');return}
+    const parts=route.split('/').filter(Boolean);
+    const sub=parts[1]||'overview';
+    if(S.user.role==='admin')return renderAdminDash(sub);
+    if(S.user.role==='organizer')return renderOrgDash(sub);
+    return renderUserDash(sub);
+  }
+  if(route==='/'||route==='')return renderHome();
+  if(route.startsWith('/events/'))return renderEventDetail(route.split('/')[2]);
+  if(route.startsWith('/events'))return renderEvents();
+  if(route==='/login')return renderLogin();
+  if(route==='/register')return renderRegister();
+  if(route==='/contact')return renderContact();
+  if(route==='/about')return renderAbout();
+  pc.innerHTML='<section class="section" style="min-height:60vh;display:flex;align-items:center;justify-content:center"><div class="empty"><i class="bi bi-question-circle"></i><h5>Page Not Found</h5><p>The page you\'re looking for doesn\'t exist.</p><button class="btn btn-p" onclick="navigate(\'/\')">Go Home</button></div></section>';
+}
+
+// ============ WINDOW EXPORTS ============
+window.navigate=navigate;window.logout=logout;window.toast=toast;window.toggleMobile=toggleMobile;
+window.homeSearch=homeSearch;window.toggleFav=toggleFav;window.handleNewsletter=handleNewsletter;
+window.evGo=evGo;
+window.selTT=selTT;window.qtyCh=qtyCh;window.startBooking=startBooking;window.submitReview=submitReview;
+window.handleLogin=handleLogin;window.handleRegister=handleRegister;window.handleForgot=handleForgot;
+window.togReg=togReg;window.handleContact=handleContact;
+window.dashNav=dashNav;window.saveProfile=saveProfile;window.changePass=changePass;window.cancelBk=cancelBk;
+window.orgEvtSt=orgEvtSt;window.orgDelEvt=orgDelEvt;window.submitEvt=submitEvt;
+window.doCheckin=doCheckin;
+window.admEvtSt=admEvtSt;window.admDelEvt=admDelEvt;window.admUserSt=admUserSt;
+window.admOrgSt=admOrgSt;window.admDelOrg=admDelOrg;window.saveSet=saveSet;
+window.addCategory=addCategory;window.admDelCat=admDelCat;
+
+// ============ INIT ============
+loadAuth();
+getStats().catch(()=>{});
+getCategories().catch(()=>{});
+window.addEventListener('hashchange',handleRoute);
+if(!location.hash||location.hash==='#'||location.hash==='#/')location.hash='/';
+else handleRoute();
+})();
+</script>
+</body>
+</html>
